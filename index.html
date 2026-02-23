@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CoolWork — Heat Cooling Solutions for the Warming World</title>
+  <meta name="description"
+    content="Affordable, evidence-based cooling technology for workers and communities facing extreme heat. Passive solutions, biometric monitoring, and active cooling platforms.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Homepage-specific ── */
+    .solution-teaser {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+
+    .teaser-card {
+      background: white;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      transition: all var(--transition-base);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: block;
+      box-shadow: var(--shadow-card);
+    }
+
+    .teaser-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--grad-blue);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--transition-base);
+    }
+
+    .teaser-card:hover {
+      border-color: rgba(37, 99, 235, 0.18);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .teaser-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .teaser-num {
+      font-family: var(--font-primary);
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 1rem;
+      background: var(--grad-blue);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .teaser-card h3 {
+      color: var(--text-primary);
+      margin-bottom: 0.6rem;
+    }
+
+    .teaser-card p {
+      color: var(--text-secondary);
+      font-size: 0.93rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .teaser-link {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: gap var(--transition-fast);
+    }
+
+    .teaser-card:hover .teaser-link {
+      gap: 0.7rem;
+    }
+
+    /* mission strip */
+    .mission-strip {
+      background: white;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+      padding: 5rem 2rem;
+    }
+
+    .mission-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .mission-inner blockquote {
+      font-family: var(--font-primary);
+      font-size: 1.6rem;
+      font-weight: 500;
+      font-style: italic;
+      line-height: 1.45;
+      color: var(--text-primary);
+      border-left: 3px solid var(--color-accent);
+      padding-left: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .figure-caption {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 0.6rem;
+      font-style: italic;
+    }
+
+    .wbgt-scale {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .wbgt-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--color-border);
+      background: var(--color-bg);
+    }
+
+    .wbgt-temp {
+      font-family: var(--font-primary);
+      font-weight: 800;
+      font-size: 1.05rem;
+      min-width: 60px;
+      flex-shrink: 0;
+    }
+
+    .wbgt-bar-track {
+      flex: 1;
+      height: 6px;
+      background: rgba(30, 60, 120, 0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .wbgt-bar {
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .wbgt-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      min-width: 160px;
+      text-align: right;
+    }
+
+    /* impact stats — light sky bg */
+    .impact-section {
+      background: linear-gradient(160deg, #dbeafe 0%, #e0f2fe 60%, #f0f9ff 100%);
+      padding: 6rem 2rem;
+    }
+
+    .impact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .stat-tiles {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 3.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .solution-teaser {
+        grid-template-columns: 1fr;
+      }
+
+      .mission-inner {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .stat-tiles {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .stat-tiles {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ── Navigation ────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="logo-icon">🌡️</div>
+      <span class="logo-text">CoolWork</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="problem.html">The Problem</a></li>
+      <li><a href="solutions.html">Solutions</a></li>
+      <li><a href="sensing.html">Sensing Platform</a></li>
+      <li><a href="platform.html">Full Platform</a></li>
+      <li><a href="platform.html" class="nav-cta">Get Started →</a></li>
+    </ul>
+    <div class="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- ── Hero ─────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-tag animate-fade-up">
+          <span class="dot"></span>
+          Climate Adaptation Technology
+        </div>
+
+        <h1 class="hero-title animate-fade-up delay-1">
+          Keeping People Safe<br>
+          <span class="line-highlight">in a Warming World</span>
+        </h1>
+
+        <p class="hero-desc animate-fade-up delay-2">
+          Extreme heat already kills and impoverishes millions. We provide affordable, evidence-based cooling solutions
+          — from passive wearables to intelligent biometric monitoring — that keep workers productive and safe when
+          temperatures become dangerous.
+        </p>
+
+        <div class="hero-actions animate-fade-up delay-3">
+          <a href="solutions.html" class="btn btn-primary">Explore Solutions →</a>
+          <a href="problem.html" class="btn btn-secondary">The Science of Heat</a>
+        </div>
+
+        <div class="hero-stat-row animate-fade-up delay-3">
+          <div class="hero-stat">
+            <div class="number" data-counter="100" data-suffix="B+" data-decimals="0">100B+</div>
+            <div class="label">person-days/yr above 30°C WBGT in India by 2030</div>
+          </div>
+          <div class="hero-stat">
+            <div class="number" data-counter="3" data-suffix="B" data-decimals="0">3B</div>
+            <div class="label">people in heat-risk zones by 2050</div>
+          </div>
+          <div class="hero-stat">
+            <div class="number" data-counter="35" data-suffix="%" data-decimals="0">35%</div>
+            <div class="label">productivity uplift from our full platform</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-image animate-fade-up delay-2">
+        <img src="img_hero.png" alt="Aerial view of a tropical megacity in heat haze">
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-divider"></div>
+
+  <!-- ── Mission Strip ─────────────────────────────────── -->
+  <div class="mission-strip">
+    <div class="mission-inner">
+      <div>
+        <span class="section-label">Our Mission</span>
+        <blockquote>
+          Technical solutions can enable productive survival in regions others would abandon.
+        </blockquote>
+        <p>
+          Inhabitants increasingly exposed to high wet-bulb temperatures need low-cost tools to survive and maintain
+          economic productivity. Existing solutions fail them — either through cost barriers, limited mobility, or both.
+          We are building that missing layer.
+        </p>
+        <div style="margin-top: 2rem;">
+          <a href="problem.html" class="btn btn-secondary">Read the full problem statement →</a>
+        </div>
+      </div>
+
+      <div>
+        <span class="section-label">Labor Productivity vs. Wet Bulb Temperature</span>
+        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Acclimatized workers' sustainable work capacity drops sharply
+          above WBGT 28°C. At WBGT 32°C, physically demanding tasks (400–500 W) fall below 20% capacity.</p>
+        <div
+          style="border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--color-border);background:white;">
+          <img src="fig_heatvslabor.png" alt="Work capacity vs WBGT chart (Smallcombe et al., Int J Biometeorol 2022)"
+            style="width:100%;height:auto;display:block;">
+        </div>
+        <p class="figure-caption">Figure: Smallcombe et al., <em>Int J Biometeorol</em> 66, 2463–2476 (2022)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Impact Stats ───────────────────────────────────── -->
+  <section class="impact-section">
+    <div class="impact-inner">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:3rem;">
+        <div>
+          <span class="section-label reveal">The Scale of the Crisis</span>
+          <h2 class="section-title reveal">Heat Is Already a Catastrophe</h2>
+          <p class="reveal">The IPCC Sixth Assessment Report projects conditions threatening mass mortality across the
+            world's most populated regions by 2050. The crisis is not coming — it is already here.</p>
+        </div>
+        <div class="reveal" style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card);">
+          <img src="fig_deadly_wbgt.png"
+            alt="Global map of days per year when temperature and humidity pose a mortality risk (Mora et al., Nature Climate Change 2017)"
+            style="width:100%;height:auto;display:block;">
+          <p style="font-size:0.75rem;color:var(--text-muted);text-align:center;padding:0.5rem 1rem;font-style:italic;">
+            Days/year when heat poses a mortality risk — historical (1991–2005) vs. +2°C scenario. Source: Mora et al.
+            (2017)</p>
+        </div>
+      </div>
+
+      <div class="stat-tiles">
+        <div class="stat-tile reveal">
+          <div class="big-num" data-counter="100" data-suffix="B" data-decimals="0">100B</div>
+          <div class="sub">person-days/yr over WBGT 30°C in India by 2030</div>
+        </div>
+        <div class="stat-tile reveal delay-1">
+          <div class="big-num" data-counter="20" data-suffix="B" data-decimals="0">20B</div>
+          <div class="sub">person-days each in Indonesia, Bangladesh &amp; Pakistan by 2030</div>
+        </div>
+        <div class="stat-tile reveal delay-2">
+          <div class="big-num" data-counter="3" data-suffix="B" data-decimals="0">3B</div>
+          <div class="sub">people in lethal heat-risk zones by 2050</div>
+        </div>
+        <div class="stat-tile reveal delay-3">
+          <div class="big-num" style="font-size:2.2rem;">$79K</div>
+          <div class="sub">average cost of a single heat exhaustion workplace injury</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Solutions Overview ─────────────────────────────── -->
+  <section class="section">
+    <div class="section-inner">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-bottom:3.5rem;">
+        <div>
+          <span class="section-label reveal">Our Products</span>
+          <h2 class="section-title reveal">Four Tiers of Protection</h2>
+          <p class="reveal">From simple passive cooling for under $25 to intelligent, sensor-driven active cooling
+            systems — we have a solution for every budget and worksite.</p>
+        </div>
+        <div class="reveal" style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card);">
+          <img src="img_products.png" alt="Worker heat cooling accessories"
+            style="width:100%;height:auto;display:block;">
+        </div>
+      </div>
+
+      <div class="solution-teaser reveal">
+        <a href="solutions.html" class="teaser-card">
+          <div class="teaser-num">01</div>
+          <h3>Passive Cooling Suite</h3>
+          <p>Evaporative towels, wristbands, neck fans, PCM tubes, and shade — evidence-based basics that return 15–90
+            minutes of effective work per shift at $2–$60 per item.</p>
+          <span class="teaser-link">View passive solutions →</span>
+        </a>
+
+        <a href="solutions.html#scheduling" class="teaser-card">
+          <div class="teaser-num">02</div>
+          <h3>Scheduling &amp; Behavioral</h3>
+          <p>Shift timing, mandatory rest/shade cycles, and hydration stations. Low CAPEX interventions that deliver
+            10–25% productivity recovery on peak heat days.</p>
+          <span class="teaser-link">Learn more →</span>
+        </a>
+
+        <a href="sensing.html" class="teaser-card">
+          <div class="teaser-num">03</div>
+          <h3>Sensing Platform</h3>
+          <p>Chest-mounted biometric sensors + AI dashboard. Real-time core temperature, individualized break
+            scheduling, early-warning alerts. $100–$150/worker + $5–$15/month.</p>
+          <span class="teaser-link">Explore sensing →</span>
+        </a>
+
+        <a href="platform.html" class="teaser-card">
+          <div class="teaser-num">04</div>
+          <h3>Sensing + Cooling Platform</h3>
+          <p>The full system: biometrics + thermoelectric palm-cooling stations. Up to 35% work output uplift and 50%
+            reduction in heat-related absenteeism. $200–$700/worker.</p>
+          <span class="teaser-link">See the platform →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo" style="position:static;">
+          <div class="logo-icon">🌡️</div>
+          <span class="logo-text">CoolWork</span>
+        </div>
+        <p>Evidence-based heat cooling solutions for workers in a warming world.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h5>Products</h5>
+          <ul>
+            <li><a href="solutions.html">Passive Solutions</a></li>
+            <li><a href="sensing.html">Sensing Platform</a></li>
+            <li><a href="platform.html">Full Platform</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Learn</h5>
+          <ul>
+            <li><a href="problem.html">The Problem</a></li>
+            <li><a href="problem.html#references">References</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 CoolWork. All rights reserved.</span>
+      <span>Built for a warming world.</span>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,351 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{amsmath, bm, amsfonts} 
+\usepackage{graphicx, subcaption}
+% \usepackage{lscape}
+\usepackage{pdflscape}
+\usepackage{listings}
+\usepackage{physics}
+\usepackage{gensymb}
+\usepackage{parskip}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+
+\lstset{
+  columns=fullflexible,
+  frame=single,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+  basicstyle=\fontsize{8}{10}\selectfont\ttfamily
+}
+\usepackage{chemformula}
+\usepackage{xcolor}
+\usepackage{soul}
+\newcommand{\mathcolorbox}[2]{\colorbox{#1}{$\displaystyle #2$}}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=cyan,      
+    urlcolor=cyan,
+    }
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
+\usepackage{datetime}
+\newdateformat{dmydate}{%
+    \dayname{\THEDAY} \monthname[\THEMONTH] \THEYEAR}
+    
+\begin{document}
+    \title{\rmfamily\normalfont\spacedallcaps{Rock Summer Fellows: Air Conditioning and Dehumidification Background}}
+    \author{\href{https://www.linkedin.com/in/shieldsn/}{Nathaniel Shields}}
+    \date{\dmydate\today}
+    \maketitle
+
+    
+       
+    \tableofcontents
+    
+    \section{Introduction}
+    As the world warms, demand for air conditioning will grow tremendously. In many cases, however, including creating safe environments for warehouse workers, dehumidification systems alone. In an attempt to understand the broader landscape of solutions a cooling vest might compete in, I describe heat and humidity driving demand, its consequences, limitations of present systems, and innovations and existing firms in the space to be aware of.
+
+    \subsection{The Problem of Heat}
+    People are ill-equipped to thrive or survive in intense heat. The effect of heat on the human body can be measured by a variety of metrics, most commonly \href{https://en.wikipedia.org/wiki/Wet-bulb_globe_temperature}{wet bulb globe temperature} (WBGT), which considers the effects of air temperature, humidity, radiation, and ventilation. Animals have no natural refrigeration cycle and rely on evaporation (the latent heat of vaporization) for cooling. WBGT thus includes the environmental variables driving heat transfer into the body (temperature, radiation) and those modulating heat transfer out of the body via evaporation (temperature, humidity, ventilation). At WBGTs $\geq$ 25 $\degree$C, strenuous work risks heat-related illness; at WBGTs $\geq$ 30.5 $\degree$C, young, healthy subjects could not carry out simple tasks mimicking daily activities; at WBGTs $\geq$ 32 $\degree$C short periods of work, even by a healthy individual, risks death; and WBGTs $\geq$ 35 $\degree$C, even for stationary individuals, are deadly after a few hours \cite{ILO_2019}\cite{Kjellstrom_2018}\cite{Physiology_2021}.
+
+    WBGTs, already high in many parts of the world, are increasing, decreasing labor productivity, increasing mortality, and reducing quality of life. Figure \ref{fig:wbgt_2030} shows the number of person-days per year in each country with  WBGTs $\geq$ 30 $\degree$C. India will experience \textbf{over 100 billion person-days in excess of the 30 $\degree$C WBGT threshold in 2030}, and Indonesia, Bangladesh, and Pakistan more than 20 billion person-days each in 2030. Even in the USA, the number of person-days in excess of the 30 $\degree$C threshold exceeds 1 billion person-days \cite{FEWS_Heat}.
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{figures/wbgt_2030.png}
+        \caption{Exposure to extreme heat by country in person-days per annum under SSP585. You can play with an interactive version of this map \href{https://static.fews.net/}{here} (if Trump resumes funding to the Famine Early Warning Systems Network via USAID).}
+        \label{fig:wbgt_2030}
+    \end{figure}
+    Sadly, I did not scrape the website in full before the regime change, but, in short, things get considerably worse as the century progresses. By 2050, per the latest IPCC report, Figure \ref{fig:deadly_wbgt}, substantial regions of the world will be subject to conditions risking death \cite{IPCC_AR6}. Concernedly, too, as shown in Figure \ref{fig:population&urban population}'s depiction of 2050 population, the regions with the most extreme conditions are substantially populated \cite{Worldmapper_2050}. Moreover, their populations, as shown in Figure \ref{fig:population&urban population}, are (increasingly) urban, where the effects of environmental heat are made more severe \cite{INED_Maps}.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{figures/deadly_wbgt.png}
+        \caption{Map of temperature risk in the coming decades (around 2050) from the IPCC Sixth Assessment Report (Impacts, Adaptation, and Vulnerability) \cite{IPCC_AR6}. Approximately 3 B people will live in the boxed region in 2050, absent unusual migration.}
+        \label{fig:deadly_wbgt}
+    \end{figure}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{figures/population&urban population.png}
+        \caption{Global population distribution in 2050, from \cite{Worldmapper_2050}, and the portion of each country's 2050 population residing in urban areas, from \cite{INED_Maps}.  Approximately 3 B people will live in the boxed region in 2050, absent unusual migration.}
+        \label{fig:population&urban population}
+    \end{figure}
+    
+    Aside from humanitarian and health arguments, which might induce a government or NGO to buy cooling products, provided a sufficiently low cost of cooling and sufficiently high wages, a rational private actor might buy cooling for their labor. Labor productivity, both intellectual and physical, decreases drastically with increasing WBGTs--see Figure \ref{fig:heatvslabor} \cite{PerryWorldHouse_HeatStress}. Accordingly, there is great economic value in investing in cooling even in regions or during periods where WBGTs do not risk injury or death.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{figures/HeatvsLabor.png}
+        \caption{Relationship between productivity loss and WBGT for four work intensities \cite{Kjellstrom_2018}. 500 watts output corresponds to intense physical labor and 200 watts output to light stationary work.}
+        \label{fig:heatvslabor}
+    \end{figure}
+
+    Finally, aside from economic inducements, people, predictably, buy air conditioning for comfort as their income rises. Figure \ref{fig:pppvsACownership}.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{figures/pppvsACownership.png}
+        \caption{AC ownership (\%) versus versus per-capita income. Cooling degree days (CDDs) are the product of the number days temperature exceeds a threshold of cooling and the difference between the average temperature and the threshold (producing units of degree $\cdot$ days). Dashed lines correspond to fits for different CDD regions. Here, the threshold is 18 $\degree$C, as is standard. See the International Energy Agency (\cite{IEA_2018}) for further detail and estimates of cooling consumption.
+        \label{fig:pppvsACownership}}
+    \end{figure}
+
+    Because of all of the aforementioned drivers, the total market for cooling equipment, but particularly AC, is expected to increase dramatically in the coming decades, as well as its electricity consumption. Figure \ref{fig:ACcapacityprojections} shows UN estimates of AC consumption. Note that global electricity generation is only on the order of tens of PWhs; cooling represented 19\% of total electricity consumption in 2022, a portion expected to increase. Installed capacity is relatively easy to convert into market size; air conditioning is typically sold at approximately \$1000 per ton cooling. There are 3517 W cooling per ton cooling, so 1 TW cooling costs approximately \$ 280 B. AC manufacturers have a net profit margin of approximately 10\%, yielding a \$ 28 B profit per TW cooling sold.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{figures/installedCapacityAC.png}
+        \caption{Installed capacity and 2b) energy consumption of stationary cooling equipment under the UN Environment Program business as usual growth scenario, 2000-2050. See \cite{UNEP_2023} for greater detail.}
+        \label{fig:ACcapacityprojections}
+    \end{figure}
+
+    Advances in efficiency yield enormous savings in electricity consumption and carbon. Figure \ref{fig:ACenergyconsumption} demonstrates the gains the UN Environment Program expects are possible given different assumptions of innovation and adoption.  Furthermore, operational expenditures on electricity correspond directly to energy consumption; manufacturers of more efficient units would save opex and could extract a greater margin or out compete traditional players.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.0\linewidth]{figures/EnergyConsumptionAC.png}
+        \caption{Energy consumption in several UN Environmental Program scenarios.
+        (A) Improved access and no efficiency gain (frozen at 2022 efficiency); (B) Improved access and business as usual (BAU) efficiency gain (medium energy efficiency levels are introduced slowly, with weak policies); (C) Added passive load reduction  measures to (B); (D) Added high efficiency gain. For complete detail of each scenario, see \cite{UNEP_2023}}
+        \label{fig:ACenergyconsumption}
+    \end{figure}
+
+    \subsection{Advances in Cooling}\label{sec:cooling}
+    First, I constrain the domain of cooling to vapor-compression refrigeration, bound its performance, explain the potential benefits of separate dehumidification, and consider a number of relevant innovations and related startups.
+
+    \subsubsection{Mechanisms of Cooling}
+    Almost all global cooling capacity used in air conditioning operate using a \href{https://en.wikipedia.org/wiki/Vapor-compression_refrigeration}{vapor compression cycle}, wherein evaporation of the coolant is used to provide cooling power and a compressor is used to increase pressure to allow condensation and heat ejection from the loop.
+
+    There are several alternatives. \href{https://en.wikipedia.org/wiki/Evaporative_cooler}{Evaporative cooling}, provided a source of water, is exceptionally cheap, and is \href{https://www.wired.com/story/evaporative-cooling-devices-coolant-clay-matka-mitticool-india-heat-wave/}{growing in adoption in markets like India}. Evaporative cooling, can, in a perfect system, only cool air from its \href{https://en.wikipedia.org/wiki/Dry-bulb_temperature}{dry bulb temperature} to its \href{https://en.wikipedia.org/wiki/Wet-bulb_temperature}{wet bulb temperature} (often a difference of only a few degrees).
+    Moreover, because the cooling power achievable with evaporative cooling decreases as a function of local humidity (which is often correlated to local water availability/cost), it is often most effective in markets with the least available liquid water.
+
+    Cooling can also be achieved by \href{https://en.wikipedia.org/wiki/Absorption_refrigerator}{absorption} and \href{https://en.wikipedia.org/wiki/Adsorption_refrigeration}{adsorption}. In absorption, two coolants are used. One coolant which provides cooling power via evaporation at low pressure before absorption into the second, which is then heated to re-separate the two. \href{https://www.youtube.com/watch?v=0R84hLprO5s}{This video} explains. Fewer moving parts are required than a vapor compression cycle, but the resulting coefficient of performance (COP) is lower. $COP = \frac{Q_{cooling}}{W_{input}}$ where $Q_{cooling}$ is the cooling power and $W_{input}$ is the input power. Adsorption is similar but the refrigerant is adsorbed into a second material that is a solid, which can be heated to separate them. Adsorption is even simpler, but an intermittent process and has an even lower coefficient of performance.
+
+    Cooling can be achieved \href{https://en.wikipedia.org/wiki/Passive_daytime_radiative_cooling}{radiatively} by producing a selective blackbody, with high emissivity in the 8 $\mu$m - 13 $\mu$m infrared range, where the atmosphere is transparent, and high reflectivity elsewhere, particularly in the peak of the solar spectrum (0.3 $\mu$m - 2.5 $\mu$m, as to maximize power radiated to space and minimize power absorbed. \href{https://www.skycoolsystems.com/}{Skycool Systems}, with which you are likely familiar, has been trying to commercialize radiative cooling for more than a decade (a source of much excitement to me in high school). Radiative cooling systems, though theoretically capable of cooling to the temperature of space (3 $\degree$K), competing heat transfer mechanisms--absorption (of radiation) as well as surface conduction and convection-limit cooling to 5 $\degree$C to 10 $\degree$C during the day, and a majority of the performance can be achieved by much cheaper systems that only reflect light. Recently, \href{https://www.sri.com/fcd_technology/self-cooling-paint-a-passive-radiative-cooling-solution/}{SRI developed a paint} that radiatively cools.
+
+    Cooling can also be achieved \href{https://en.wikipedia.org/wiki/Thermoelectric_cooling}{thermoelectrically}, \href{https://en.wikipedia.org/wiki/Magnetic_refrigeration}{magnetically}, or \href{https://en.wikipedia.org/wiki/Thermoacoustic_heat_engine}{thermoacoustically}, but these methods are not practical for air conditioning and are left to the reader for exploration.
+    
+    Accordingly, air conditioners operate via a classic vapor-compression cycle. The COP of the system in removing heat from air is limited by the Carnot COP,
+    \begin{equation}
+        COP_{Carnot} = \frac{T_{cold}}{T_{hot} - T_{cold}}
+    \end{equation}
+    Real systems are irreversible (generate entropy) and are subject to a variety of losses (compressor efficiency, expansion valve loss, flow losses, etc.) that lower COP and are largely unrecoverable (or are uneconomic to recover). Typical air conditioners rarely realize a COP greater than 3-5 in normal operational conditions.
+
+    However, the actual energy required to cool a unit volume of air depends on its composition. Water has high thermal mass (4.18 kJ/(kg $\cdot$ K)) and particularly high heat of fusion (334 kJ/kg), so the concentration of water in a volume of air substantially affects the energy required to cool it, particularly if the evaporator is substantially cooler than the air's dew point.
+    Similarly, a cooling unit of a probe operating on Venus would have to pay the penalty of the heat of fusion of sulfuric acid (71 kJ/kg), which would condense on its surface.
+
+    Accordingly, if the water content of the air to be cooled can be reduced via some lower-energy mechanism than direct cooling, efficiency of the combined cooling system can be substantially increased; separating the latent and sensible loads is worthwhile.
+
+    Moreover, reducing the water content of air (the humidity) reduces WBGT even at constant temperature; in some applications, the refrigeration loop may be possible to eliminate entirely.
+
+    \subsubsection{Dehumidification}
+
+    A number of mechanisms exist to reduce the water content of air. Vapor must either be cooled below its dew point, brought in contact with a substance having a strong affinity for water, or have its partial pressure made to exceed that on the other side of a membrane or within a chemical bed.
+
+    \paragraph{Performance Bounds}
+    We can establish lower bounds on the energy required for dehumidification. The ideal energy of separation is the \href{https://en.wikipedia.org/wiki/Entropy_of_mixing#Gibbs_free_energy_of_mixing}{Gibbs free energy of mixing}
+    \begin{equation}
+        \Delta G = \Delta H_{mix}-T\Delta S_{mix}
+    \end{equation}
+    For ideal gasses, $\Delta H_{mix} = 0$, and the specific Gibbs free energy of mixing (energy required for unmixing), derived \href{https://ocw.mit.edu/courses/2-60j-fundamentals-of-advanced-energy-conversion-spring-2020/8b87cb42c38256830b019879615bb64b_MIT2_60s20_lec3.pdf}{here}, for mixture with molar fractions $X_1$ and $(1-X_1)$ is given by
+    \begin{equation}
+    \label{eq:separationenergy}
+        \Delta G = -RT_0 \left(X_1 \ln\left(X_1\right) + \left(1-X_1\right)\ln\left(1-X_1\right)\right)
+    \end{equation}
+    You may recognize this equation from DAC (to compute the minimum energy cost of CO$_2$ separation as a function of concentration). For water vapor at 50\% relative humidity at 25 $\degree$C, Equation \eqref{eq:separationenergy} yields approximately 0.003 kWh/kg (water removed). This, of course, assumes an ideal process; any real process would be subject to a host of additional losses.
+
+    If water is condensed to liquid, the full heat of vaporization of water must be paid, approximately 0.68 kWh/kg (water removed), though the heat of vaporization is a function of temperature and mildly of pressure. The total work required as input is then the heat of vaporization divided by the COP. 
+    \begin{equation}
+        w = \frac{q_{vaporization}(T_{hot})T_{cold}}{T_{hot}-T_{cold}}
+    \end{equation}
+    where $T_{hot}$ is the ambient temperature and $T_{cold}$ is the dew point. For a typical system with $COP = 5$, this yields $w \approx 0.14$ kWh/kg.
+    
+    In summary, processes allowing dehumidification without condensation might achieve considerably lower energy intensities for dehumidification, though any realized process will differ substantially from the physical ideal.
+
+    \paragraph{Mechanisms of Dehumidification}
+    Cooling from any source, compression/expansion cycles, refrigeration cycle, endothermic reaction, thermoelectric cooling, etc. can condense water. Mechanisms of cooling are considered in Section \ref{sec:cooling}. At minimum, the heat of vaporization must be produced in cooling power to condense the water, but, in addition to the usual sources of loss in the cooling system, the air must often be reheated to the desired output temperature. The overcooling of air for the purpose of dehumidification is inefficient. Specifically, if one intends to dehumidify air, one must cool the air to approximately 10 $\degree$C to 15 $\degree$C, whereas if one needs only to cool the air to approximately 20 $\degree$C to 25 $\degree$C, where far more favorable COPs are possible. Nonetheless, dehumidifying and cooling using the same system is simpler than other methods and widely employed.
+    
+    Affinity-based dehumidification is possible using adsorption or absorption. Desiccants (hygroscopic materials), such as silica, zeolites, or calcium chloride, adsorb water, but, requiring some cycling to regenerate, suffer many of the same challenges associated with adsorbents of CO$_{2}$. Energy is bounded by the heat required for regeneration, the heat of absorption. Similarly, absorption systems are possible using lithium bromide, lithium chloride, strong salt solutions, or glycols, enabling continuous flow processes, but similarly require some payment of heat, the heat of absorption, to release water and regenerate.
+    Moreover, many of the aforementioned absorbents are highly corrosive. Heats of adsorption and absorption for common desiccants and absorbents of water are listed in Table \ref{tb:adbsorbents}.
+
+    \begin{table}[h]\label{tb:adbsorbents}
+        \centering
+        \renewcommand{\arraystretch}{1.3}
+        \setlength{\extrarowheight}{2pt}
+        \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+        \begin{tabularx}{\textwidth}{|L|c|L|}
+            \hline
+            \textbf{Material} & \textbf{Heat of Sorption (kWh/kg H$_2$O)} & \textbf{Source} \\
+            \hline
+            Silica Gel & 0.67–0.78 & \href{https://link.springer.com/article/10.1007/s00231-019-02692-0}{Springer Study on SAPO-34 and Silica Gel} \\
+            \hline
+            Zeolites / Molecular Sieves & 0.83–1.17 & \href{https://link.springer.com/article/10.1007/s10450-005-5405-x}{Springer Study on Zeolites} \\
+            \hline
+            Lithium Chloride (LiCl) & 0.78–0.86 & \href{https://iifiir.org/en/fridoc/duhring-charts-and-enthalpy-concentration-charts-for-the-14054}{IIF Duhring Charts} \\
+            \hline
+            Calcium Chloride (CaCl$_2$) & 0.67–0.81 & \href{https://academic.oup.com/ijlct/article/11/4/489/2527604}{Oxford Review on Desiccant Cooling} \\
+            \hline
+            Lithium Bromide (LiBr) & 0.78–0.97 & \href{https://iifiir.org/en/fridoc/physical-and-thermal-properties-of-the-water-lithium-bromide-zinc-89920}{IIF Thermal Properties of LiBr Solutions} \\
+            \hline
+        \end{tabularx}
+        \caption{Heats of Adsorption and Absorption for Various Desiccants and Absorbents}
+    \end{table}
+    In addition to the heat of sorption, one must provide the sensible heat required to raise the temperature of the mass of the water and adsorbent or absorbent to that required for regeneration. In practice, the sensible heat is usually less than an order of magnitude smaller than the heat of sorption. Nonetheless, as the air being dehumidified is rarely at temperatures close to the heat of regeneration (where the adsorbent or absorbent would not be particularly effective anyway), some substantial temperature swing is necessary. The sensible heat for the materials in Table \ref{tb:adbsorbents} can be calculated using the data in Table \ref{tb:cp}.
+
+    \begin{table}[h]\label{tb:cp}
+        \centering
+        \renewcommand{\arraystretch}{1}
+        \setlength{\extrarowheight}{2pt}
+        \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+        \begin{tabularx}{\textwidth}{|L|c|c|L|}
+            \hline
+            \textbf{Material} & \textbf{\( c_p \) (kJ/kg·K)} & \textbf{$T_{regneration}$ ($\degree$C)} & \textbf{Source} \\
+            \hline
+            Silica Gel & 0.84 & 100–150 & \href{https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html}{Engineering ToolBox} \\
+            \hline
+            Zeolites & 0.92 & 150–300 & \href{https://www.engineeringtoolbox.com/specific-heat-capacity-d_391.html}{Engineering ToolBox} \\
+            \hline
+            Lithium Chloride (LiCl) Solution & 3.0–3.6 & 60–90 & \href{https://www.fchart.com/ees/eeshelp/hs612.htm}{F-Chart Software} \\
+            \hline
+            Calcium Chloride (CaCl$_2$) Solution & 2.5–3.2 & 60–90 & \href{https://www.fchart.com/ees/eeshelp/hs612.htm}{F-Chart Software} \\
+            \hline
+            Lithium Bromide (LiBr) Solution & 3.3–3.8 & 60–90 & \href{https://www.fchart.com/ees/eeshelp/hs612.htm}{F-Chart Software} \\
+            \hline
+        \end{tabularx}
+        \caption{Specific heat capacities and typical regeneration temperatures of various desiccants and absorbents}
+    \end{table}
+    Even simply considering the heats of adsorption or absorption, however, affinity-based processes seem considerably more energy intensive than vapor-compression-based dehumidification. However, the heat necessary for regeneration is, in many applications, available as waste heat (even from a separate cooling process) or readily producible using cheap thermal solar, reducing the penalty of the energy cost. Moreover, allowing the primary vapor compression loop to operate at higher temperatures (approximately 20 $\degree$C to 25 $\degree$C rather than 10 $\degree$C to 15 $\degree$C) can save as much as 20\% to 40\% in energy in that process, depending on the configuration.
+
+    Membrane-based dehumidification uses a selective membrane, across which a driving gradient of some form exists, to separate water vapor from air without requiring a phase transition. In addition to the energy required for separation, some energy is required to maintain the driving gradient. For a system using a vacuum gradient, the energy required for mass transport is
+    \begin{equation}
+        E_{transport}=\frac{JA\Delta P}{\eta_{membrane}}
+    \end{equation}
+    where $A$ is the surface area of the membrane, $\Delta P$ is the pressure difference over the membrane, $\eta_{membrane}$ is the membrane efficiency, and $J$, the water vapor flux is given by Fick's law
+    \begin{equation}
+        J = \left( \frac{D_{H_2O}}{\delta}\right)(C_{H_2O, \space air} - C_{H_2O, \space vacuum})
+    \end{equation}
+    where $D_{H_2O}$ is the diffusivity of water vapor in the membrane, $\delta$ is the membrane thickness, and $C_{H_2O, i}$ are the water vapor concentrations on each side. The work required to draw vacuum is
+    \begin{equation}
+        W= \left(\frac{\gamma}{\gamma-1}\right) RT\ln\left(\frac{P_{atm}}{P_{vac}}\right)
+    \end{equation}
+    Here $\gamma$ is the specific heat ratio. The actual outputs of these equations depend on the system specifications, but provide a useful overview of the physical dimensions necessary to collect to gain a basic understanding of a proposed system's competitiveness.
+    
+    Aside from the energy intensity of dehumidification by selective membranes, their use has, historically, been hampered by their frailty. Membranes must have large areas to operate efficiently, and producing membranes selective of water vapor of large areas that are durable for practical use is challenging.
+
+    One can imagine other methods of dehumidification--gas centrifuging, etc.--but any methods not discussed above are generally impractical for economically competitive dehumidification.
+
+    
+    \subsection{Potential Competitors}
+    \subsubsection{\href{https://trellisair.com/}{Trellis Air}}
+    Trellis Air, founded by \href{https://www.linkedin.com/in/russ-wilcox-2005/}{Russ Wilcox} in 2024, who previously founded and sold E Ink (which commercialized E-Ink) is developing membrane dehumidification, which claims "dehumidification at 50\%-80\% energy savings." \href{https://greentownlabs.com/members/trellis-air/}{Specifically}, the company aims to "replace desiccant wheels at 80\% less energy, replace standalone dehumidifiers at 50\% less energy, and eliminate reheat energy from buildings" using a "high-function, low-cost membrane plus a novel vacuum pump arrangement." Thus far, they have constructed a 200 cubic-foot per minute prototype.
+    \href{https://www.linkedin.com/in/guydanner/}{Guy Danner}, Trellis's CTO was previously Head of Product Development at E Ink, and \href{https://www.linkedin.com/in/jd-albert-8647a2/}{JD Albert}, Trellis's VP of Engineering, was Co-Founder and Principal Engineer at E Ink. Presumably the team is capable of executing together.
+
+    Otherwise, details are sparse and no IP is yet visible, but presumably Trellis has identified some means of improving the robustness of water-vapor selective membranes. What precisely a "novel vacuum arrangement" might be eludes me. Vacuum must be drawn.
+
+    No other information is publicly available.
+
+    \subsubsection{\href{https://transaera.com/}{Transaera}}
+    More mature is Transaera, spun out of MIT in 2018, using metal-organic frameworks (MOFs) for adsorbent-based dehumidification prior to a conventional vapor compression loop. MOFs might be engineered to have lower heat of sorption than alternative desiccants, though little current data about Transaera's MOF performance is available. The last data related to Transaera's MOF performance is a \href{https://pubs.acs.org/doi/full/10.1021/acscentsci.7b00186?source=cen}{2017 paper} by one of the cofounders, which claims heat of adsorptions between 0.71 kWh/kg H$_2$O and 0.85 kWh/kg H$_2$O and regeneration at 55 $\degree$C, but with very high water capture by weight compared to other materials (more water can be collected per unit material mass per cycle).
+
+    Transaera has filed \href{https://patents.justia.com/assignee/transaera-inc?}{several patents} related to the separation of dehumidification and cooling in air conditioning processes (as described above) and of a cooling system using a rotating desiccant wheel (with \href{https://patentimages.storage.googleapis.com/80/d5/c6/750469ced87ba3/US20240328641A1.pdf}{schematics} revealing the design in some detail).
+
+    Transaera's team has entrepreneurship and technical experience in the space.
+    \href{https://www.linkedin.com/in/sorin-grama/}{Sorin Grama}, Co-founder and CEO, an experienced entrepreneur and lecturer at MIT D-Lab, who previously co-founded Promethean Power Systems, focusing on off-grid refrigeration solutions. \href{https://www.linkedin.com/in/mircea-dinca-1ab43314/}{Mircea Dincă}, Co-founder, is a chemistry professor at Princeton (formerly MIT). Dincă has conducted pioneering research on metal-organic frameworks (MOFs), basic to Transaera's technology.
+
+    Transaera's limited progress (presumably) in the duration since its formation and the departure of \href{https://www.linkedin.com/in/matthewdorson/}{Matt Dorson}, Co-founder and CTO, is a mechanical engineer who collaborated with Grama at Promethean Power Systems, are not promising, but the company only \href{https://cleanenergyventures.com/clean-energy-venture-capital/transaera-secures-10-5-million-energy-efficient-ac/}{raised its \$10.5M seed} in late 2024 (including \$2.3M in DOE grants) and plans to deliver its first unit to a customer in \href{https://www.linkedin.com/feed/update/urn:li:activity:7288544678268817410/}{July 2025}.
+
+
+    \subsection{Blue Frontier}
+    
+    \subsubsection{Overview}
+    Blue Frontier is a climatetech company developing an air conditioning system that integrates ultra-efficient cooling, humidity control, and energy storage. Using a liquid desiccant-based approach, its technology reduces both energy consumption and the climate impact of traditional HVAC systems. Founded in 2017 and based in Boca Raton, Florida, the company is initially targeting the commercial rooftop HVAC market, which represents a \$20 billion+ addressable market in the U.S.
+    
+    \subsubsection{Team}
+    \begin{itemize}
+        \item Daniel Betts (Founder \& CEO) – Entrepreneur and engineer with a background in thermal energy systems and renewable technologies.
+        \item Matt Graham (COO) – Previously at Tesla Energy, where he helped scale commercial energy solutions.
+        \item Steve Lamb (CTO) – Expert in HVAC technology and desiccant-based cooling systems.
+    \end{itemize}
+    
+    \subsubsection{Funding and Investors}
+    Blue Frontier has raised \$20 million in Series A funding (2022), led by:
+    \begin{itemize}
+        \item Breakthrough Energy Ventures
+        \item 2150 Urban Tech Sustainability Fund
+        \item VoLo Earth Ventures
+    \end{itemize}
+    
+    \subsubsection{Value Proposition and Differentiation}
+    Blue Frontier's system combines dew-point cooling, desiccant dehumidification, and built-in energy storage. This approach offers several advantages:
+    
+    \begin{itemize}
+        \item Energy savings of 50–90\% compared to conventional HVAC units.
+        \item Built-in energy storage, reducing peak electricity demand by up to 90\% and enabling greater use of renewable energy.
+        \item Reduction of high-GWP refrigerants by 85\%, mitigating HVAC-related climate impact.
+        \item Retrofit-ready 5- to 20-ton rooftop HVAC units for commercial real estate.
+        \item HVAC-as-a-Service model, offering a subscription-based adoption pathway.
+    \end{itemize}
+    
+    \subsubsection{Market and Scalability}
+    \begin{itemize}
+        \item The global commercial HVAC market exceeds \$100 billion.
+        \item Initial focus is on commercial buildings in hot and humid climates, where energy savings and dehumidification deliver the greatest return on investment.
+        \item Future expansion into residential HVAC, data centers, and industrial cooling.
+    \end{itemize}
+    
+    \subsubsection{Competitive Landscape and Risks}
+    Blue Frontier differentiates itself by integrating air conditioning with energy storage, unlike competitors such as Transaera (MOF-based cooling) and SkyCool Systems (radiative cooling).
+    
+    Challenges and risks include:
+    \begin{itemize}
+        \item Scaling and manufacturing requirements in a hardware-intensive industry.
+        \item Adoption barriers due to long commercial HVAC replacement cycles (15–20 years).
+        \item Compliance with ASHRAE standards, utility incentives, and building codes.
+    \end{itemize}
+    
+    \subsubsection{Final Verdict}
+    Blue Frontier has a clear market fit, a scalable business model, and strong investor support.
+    
+    \subsection{Mojave Energy Systems}
+    
+    \subsubsection{Overview}
+    Mojave Energy Systems, founded in 2022 in Sunnyvale, California, focuses on high-efficiency air conditioning with its ArctiDry system, a dedicated outdoor air system (DOAS) that leverages liquid desiccant technology. The company targets the commercial HVAC market, emphasizing energy-efficient dehumidification.
+    
+    \subsubsection{Leadership Team}
+    \begin{itemize}
+        \item Philip Farese (Founder \& CEO) – Experienced in energy systems and HVAC innovation.
+    \end{itemize}
+    
+    \subsubsection{Funding and Investors}
+    \begin{itemize}
+        \item Seed Round (September 2023): \$12.5 million, co-led by At One Ventures and Fifth Wall, with participation from Xerox Ventures.
+        \item Series A (December 2024): \$9.5 million, led by Fifth Wall and At One Ventures, with participation from Earth Venture Capital.
+    \end{itemize}
+    
+    \subsubsection{Value Proposition}
+    Mojave’s ArctiDry system offers:
+    \begin{itemize}
+        \item Up to 50\% energy reduction using a high-concentration salt solution for dehumidification.
+        \item 20\% lower refrigerant usage, reducing greenhouse gas emissions.
+        \item Easy integration with existing infrastructure.
+    \end{itemize}
+    
+    \subsubsection{Market Traction and Future Plans}
+    Since launching ArctiDry in January 2024, Mojave has:
+    \begin{itemize}
+        \item Begun manufacturing and shipping units from its facility in Anderson, South Carolina.
+        \item Built a sales partner network with 19 firms, aiming for full U.S. coverage in 2025.
+    \end{itemize}
+    
+    
+    \subsubsection{Final Verdict}
+    Mojave Energy Systems improves HVAC energy efficiency in commercial buildings. Its differentiated liquid desiccant approach, strong funding, and early market traction position it well for growth.
+
+    \newpage
+    \bibliography{bib}
+    \bibliographystyle{plainurl}
+
+
+\end{document}

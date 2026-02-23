@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensing Platform — CoolWork</title>
+    <meta name="description"
+        content="Continuous per-employee heat strain monitoring, intelligent break scheduling, and predictive analytics. Real-time core body temperature tracking at $100–$150 per sensor.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--color-border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .spec-cell {
+            padding: 1.75rem;
+            background: var(--color-surface);
+        }
+
+        .spec-cell .spec-key {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .spec-cell .spec-val {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 1.35rem;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .spec-cell .spec-sub {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .spec-cell .spec-val.orange {
+            color: var(--color-accent);
+        }
+
+        .spec-cell .spec-val.blue {
+            color: var(--color-accent2);
+        }
+
+        .spec-cell .spec-val.cyan {
+            color: var(--color-accent3);
+        }
+
+        .spec-cell .spec-val.green {
+            color: var(--color-success);
+        }
+
+        /* BOM table */
+        .bom-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .bom-table thead th {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .bom-table tbody tr {
+            border-bottom: 1px solid var(--color-border);
+            transition: background var(--transition-fast);
+        }
+
+        .bom-table tbody tr:hover {
+            background: rgba(255, 255, 255, .02);
+        }
+
+        .bom-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .bom-table td {
+            padding: 0.7rem 1rem;
+            color: var(--text-secondary);
+        }
+
+        .bom-table td:first-child {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .bom-table .total-row {
+            background: rgba(249, 115, 22, 0.05);
+        }
+
+        .bom-table .total-row td {
+            color: var(--color-accent);
+            font-weight: 700;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        /* Comparison table (vs competitors) */
+        .cmp-yes {
+            color: var(--color-success);
+            font-weight: 700;
+        }
+
+        .cmp-no {
+            color: #ef4444;
+            font-weight: 500;
+        }
+
+        .cmp-partial {
+            color: var(--color-accent);
+            font-weight: 500;
+        }
+
+        .cmp-our {
+            background: rgba(59, 130, 246, 0.06) !important;
+        }
+
+        .cmp-our td:first-child {
+            color: var(--color-accent2) !important;
+            font-weight: 700 !important;
+        }
+
+        /* Uplift breakdown */
+        .uplift-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.02);
+            transition: border-color var(--transition-fast);
+        }
+
+        .uplift-item:hover {
+            border-color: var(--color-border-light);
+        }
+
+        .uplift-pct {
+            font-family: var(--font-primary);
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--color-accent2);
+            min-width: 80px;
+            text-align: center;
+            line-height: 1;
+            padding-top: 0.25rem;
+        }
+
+        .uplift-text h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.35rem;
+        }
+
+        .uplift-text p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .specs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav">
+        <div class="nav-logo">
+            <div class="logo-icon">🌡️</div>
+            <span class="logo-text">CoolWork</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="problem.html">The Problem</a></li>
+            <li><a href="solutions.html">Solutions</a></li>
+            <li><a href="sensing.html" class="active">Sensing Platform</a></li>
+            <li><a href="platform.html">Full Platform</a></li>
+            <li><a href="platform.html" class="nav-cta">Get Started →</a></li>
+        </ul>
+        <div class="nav-hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <div class="hero-tag">
+                <span class="dot"></span>Section 3
+            </div>
+            <h1>Sensing <span
+                    style="background:var(--grad-blue);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Platform</span>
+            </h1>
+            <p>Continuous per-employee heat strain monitoring, intelligent break scheduling, and predictive analytics
+                for occupational heat stress management — at a lower cost than every major competitor.</p>
+            <div style="margin-top:1.75rem;display:flex;gap:1rem;flex-wrap:wrap;">
+                <a href="platform.html" class="btn btn-primary">Add Active Cooling →</a>
+                <a href="#specs" class="btn btn-secondary">Technical Specs</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="glow-divider"></div>
+
+    <!-- ── Top-line KPIs ── -->
+    <section class="section" style="padding-top:4rem;padding-bottom:4rem;background:var(--color-surface);">
+        <div class="section-inner">
+            <div class="grid-4 reveal">
+                <div class="stat-tile" style="text-align:center;padding:2rem 1rem;">
+                    <div class="big-num"
+                        style="font-family:var(--font-primary);font-size:2.5rem;font-weight:900;background:var(--grad-blue);-webkit-background-clip:text;-webkit-text-fill-color:transparent;"
+                        data-counter="120" data-suffix=" min" data-decimals="0">120 min</div>
+                    <div class="sub" style="color:var(--text-secondary);font-size:0.85rem;margin-top:0.5rem;">Effective
+                        work returned per 8-hr shift</div>
+                </div>
+                <div class="stat-tile" style="text-align:center;padding:2rem 1rem;">
+                    <div class="big-num"
+                        style="font-family:var(--font-primary);font-size:2.5rem;font-weight:900;background:var(--grad-blue);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+                        25%</div>
+                    <div class="sub" style="font-size:0.85rem;margin-top:0.5rem;">Max productivity uplift at WBGT 32°C
+                    </div>
+                </div>
+                <div class="stat-tile" style="text-align:center;padding:2rem 1rem;">
+                    <div class="big-num"
+                        style="font-family:var(--font-primary);font-size:2.5rem;font-weight:900;background:var(--grad-blue);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+                        45%</div>
+                    <div class="sub" style="font-size:0.85rem;margin-top:0.5rem;">Reduction in heat-related absenteeism
+                    </div>
+                </div>
+                <div class="stat-tile" style="text-align:center;padding:2rem 1rem;">
+                    <div class="big-num"
+                        style="font-family:var(--font-primary);font-size:2.5rem;font-weight:900;background:var(--grad-blue);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+                        $100–$150</div>
+                    <div class="sub" style="font-size:0.85rem;margin-top:0.5rem;">Per sensor vs $250–$399 for
+                        competitors</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── How it works ── -->
+    <section class="section">
+        <div class="section-inner">
+            <span class="section-label reveal">How It Works</span>
+            <h2 class="section-title reveal">Three Layers of Intelligence</h2>
+
+            <div class="timeline mt-3">
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-spine">
+                        <div class="timeline-node"
+                            style="background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);color:var(--color-accent2);">
+                            1</div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Real-Time Biometric Monitoring</h4>
+                        <p>A chest-mounted sensor continuously measures core body temperature (±0.2°C), heart rate (±2
+                            bpm), skin temperature, and derived physiological Heat Strain Index (HSI). Validated against
+                            ingestible pill thermometry — comparable accuracy to CORE 2 at half the price.</p>
+                        <div class="metrics-row mt-2">
+                            <div class="metric-chip blue"><span class="chip-val"
+                                    style="color:var(--color-accent2);">±0.2°C</span><span class="chip-label">Core temp
+                                    accuracy</span></div>
+                            <div class="metric-chip blue"><span class="chip-val" style="color:var(--color-accent2);">±2
+                                    bpm</span><span class="chip-label">Heart rate accuracy</span></div>
+                            <div class="metric-chip blue"><span class="chip-val" style="color:var(--color-accent2);">5–7
+                                    days</span><span class="chip-label">Battery per charge</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal delay-1">
+                    <div class="timeline-spine">
+                        <div class="timeline-node"
+                            style="background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);color:var(--color-accent2);">
+                            2</div>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Individualized Break Scheduling</h4>
+                        <p>The platform replaces generic OSHA/ISO 7243 blanket schedules with per-worker work/rest
+                            cycles driven by each person's real-time physiological state. Field studies show
+                            sensor-based alerts detect high heat strain on &gt;60% of workdays, vs only ~30% flagged by
+                            weather-based warnings alone.</p>
+                        <div class="callout blue mt-2">
+                            <h4>Research Backing</h4>
+                            <p>Notley et al. (2023) show individualized schedules can extend work cycles without
+                                jeopardizing safety. Wearable sensor fatigue prediction achieves ≥85% accuracy (Umer et
+                                al., 2020).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal delay-2">
+                    <div class="timeline-spine">
+                        <div class="timeline-node"
+                            style="background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);color:var(--color-accent2);">
+                            3</div>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Predictive Weather-Integrated Scheduling</h4>
+                        <p>Per-worker heat response models trained on individual biometric history generate productivity
+                            forecasts for upcoming weather up to 7 days out — enabling proactive shift scheduling, crew
+                            rotation, and pre-cooling recommendations before conditions become critical.</p>
+                        <div class="metrics-row mt-2">
+                            <div class="metric-chip blue"><span class="chip-val" style="color:var(--color-accent2);">7
+                                    days</span><span class="chip-label">Forecast horizon</span></div>
+                            <div class="metric-chip blue"><span class="chip-val"
+                                    style="color:var(--color-accent2);">2–5%</span><span class="chip-label">Additional
+                                    uplift from planning</span></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- /timeline -->
+        </div>
+    </section>
+
+    <!-- ── Sensor Image + Productivity Uplift ── -->
+    <section class="section bg-sky" style="padding-top:4rem;padding-bottom:4rem;">
+        <div class="section-inner">
+            <div class="two-col reveal" style="gap:3rem;align-items:center;">
+                <div style="border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card);">
+                    <img src="img_sensor_device.png" alt="CoolWork biometric sensor device"
+                        style="width:100%;height:auto;display:block;">
+                </div>
+                <div>
+                    <span class="section-label">Efficacy</span>
+                    <h2 class="section-title">Productivity Uplift Breakdown</h2>
+                    <p style="margin-bottom:1.5rem;">At WBGT ≈ 32°C, the Sensing Platform delivers 10–25% work output
+                        improvement
+                        (50–120 effective work minutes) per 8-hr shift through three compounding mechanisms.</p>
+
+                    <div style="display:flex;flex-direction:column;gap:0.85rem;">
+                        <div
+                            style="padding:1rem 1.25rem;border:1px solid var(--color-border);border-radius:var(--radius-md);background:white;display:flex;gap:1rem;align-items:center;">
+                            <span
+                                style="font-family:var(--font-primary);font-weight:900;font-size:1.5rem;color:var(--color-accent);min-width:68px;">5–15%</span>
+                            <div><strong
+                                    style="color:var(--text-primary);display:block;margin-bottom:0.2rem;">Individualized
+                                    Break Scheduling</strong><span
+                                    style="font-size:0.85rem;color:var(--text-secondary);">Sensor-based alerts detect
+                                    high heat strain on &gt;60% of workdays vs ~30% by weather warnings.</span></div>
+                        </div>
+                        <div
+                            style="padding:1rem 1.25rem;border:1px solid var(--color-border);border-radius:var(--radius-md);background:white;display:flex;gap:1rem;align-items:center;">
+                            <span
+                                style="font-family:var(--font-primary);font-weight:900;font-size:1.5rem;color:var(--color-accent);min-width:68px;">3–8%</span>
+                            <div><strong style="color:var(--text-primary);display:block;margin-bottom:0.2rem;">Early
+                                    Incident Detection</strong><span
+                                    style="font-size:0.85rem;color:var(--text-secondary);">Real-time alerts prevent
+                                    performance collapse. Fatigue prediction ≥85% accuracy. Avg. injury cost:
+                                    ~$79K.</span></div>
+                        </div>
+                        <div
+                            style="padding:1rem 1.25rem;border:1px solid var(--color-border);border-radius:var(--radius-md);background:white;display:flex;gap:1rem;align-items:center;">
+                            <span
+                                style="font-family:var(--font-primary);font-weight:900;font-size:1.5rem;color:var(--color-accent);min-width:68px;">2–5%</span>
+                            <div><strong
+                                    style="color:var(--text-primary);display:block;margin-bottom:0.2rem;">Predictive
+                                    Shift Planning</strong><span
+                                    style="font-size:0.85rem;color:var(--text-secondary);">7-day weather-based forecasts
+                                    enable proactive scheduling and pre-cooling before dangerous conditions.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Technical Specs ── -->
+    <section id="specs" class="section">
+        <div class="section-inner">
+            <span class="section-label reveal">Technical Specifications</span>
+            <h2 class="section-title reveal">Sensor Hardware</h2>
+
+            <div class="specs-grid reveal mt-3">
+                <div class="spec-cell">
+                    <div class="spec-key">Core Temp Accuracy</div>
+                    <div class="spec-val orange">±0.2°C</div>
+                    <div class="spec-sub">Mean deviation vs ingestible pill thermometry</div>
+                </div>
+                <div class="spec-cell">
+                    <div class="spec-key">Heart Rate Accuracy</div>
+                    <div class="spec-val blue">±2 bpm</div>
+                    <div class="spec-sub">Via PPG sensor (MAX30101)</div>
+                </div>
+                <div class="spec-cell">
+                    <div class="spec-key">Battery Life</div>
+                    <div class="spec-val green">5–7 days</div>
+                    <div class="spec-sub">Continuous monitoring; BLE 5.0 low-energy</div>
+                </div>
+                <div class="spec-cell">
+                    <div class="spec-key">Weight</div>
+                    <div class="spec-val orange">~10 g</div>
+                    <div class="spec-sub">Sensor only; ~15 g with chest clip</div>
+                </div>
+                <div class="spec-cell">
+                    <div class="spec-key">Dimensions</div>
+                    <div class="spec-val blue">42×30×8 mm</div>
+                    <div class="spec-sub">Comparable to CORE 2 (41.9×29.4×7.1 mm)</div>
+                </div>
+                <div class="spec-cell">
+                    <div class="spec-key">Water Resistance</div>
+                    <div class="spec-val cyan">IP67</div>
+                    <div class="spec-sub">Submersible 1 m / 30 min; sweat and washdown proof</div>
+                </div>
+                <div class="spec-cell">
+                    <div class="spec-key">Connectivity</div>
+                    <div class="spec-val orange">BLE 5.0</div>
+                    <div class="spec-sub">+ ANT+; optional LTE-M/NB-IoT for remote sites</div>
+                </div>
+                <div class="spec-cell">
+                    <div class="spec-key">Recharge Duration</div>
+                    <div class="spec-val blue">~60 min</div>
+                    <div class="spec-sub">Via USB-C magnetic adapter to full charge</div>
+                </div>
+                <div class="spec-cell">
+                    <div class="spec-key">Operating Range</div>
+                    <div class="spec-val green">−20 to +55°C</div>
+                    <div class="spec-sub">0–100% RH; tropical, arid, and humid climates</div>
+                </div>
+                <div class="spec-cell">
+                    <div class="spec-key">On-Device Storage</div>
+                    <div class="spec-val cyan">≥48 hr</div>
+                    <div class="spec-sub">Continuous data; cloud sync for analytics</div>
+                </div>
+                <div class="spec-cell">
+                    <div class="spec-key">Durability</div>
+                    <div class="spec-val orange">&gt;3 years</div>
+                    <div class="spec-sub">IP67 polycarbonate housing under field conditions</div>
+                </div>
+                <div class="spec-cell">
+                    <div class="spec-key">Retail Price</div>
+                    <div class="spec-val blue">$100–$150</div>
+                    <div class="spec-sub">+ $5–15/worker/month platform subscription</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Technical Specs ── -->
+    <section class="section">
+        <div class="section-inner">
+            <span class="section-label reveal">Competitive Landscape</span>
+            <h2 class="section-title reveal">How We Compare</h2>
+
+            <div class="cmp-table-wrap reveal">
+                <table class="cmp-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Battery</th>
+                            <th>Weight</th>
+                            <th>IP Rating</th>
+                            <th>Fleet Analytics</th>
+                            <th>Break Scheduling</th>
+                            <th>Predictive Model</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="cmp-our">
+                            <td>CoolWork Sensor</td>
+                            <td>$100–$150</td>
+                            <td>5–7 days</td>
+                            <td>~10 g</td>
+                            <td>IP67</td>
+                            <td class="cmp-yes">✓</td>
+                            <td class="cmp-yes">✓</td>
+                            <td class="cmp-yes">✓</td>
+                        </tr>
+                        <tr>
+                            <td>CORE 2 (greenTEG)</td>
+                            <td>~$250</td>
+                            <td>6 days</td>
+                            <td>8.6 g</td>
+                            <td>IPX7</td>
+                            <td class="cmp-no">✗</td>
+                            <td class="cmp-no">✗</td>
+                            <td class="cmp-no">✗</td>
+                        </tr>
+                        <tr>
+                            <td>SlateSafety BAND V2</td>
+                            <td>$300+</td>
+                            <td>24–100 hr</td>
+                            <td>—</td>
+                            <td>IP68</td>
+                            <td class="cmp-partial">Partial</td>
+                            <td class="cmp-no">✗</td>
+                            <td class="cmp-no">✗</td>
+                        </tr>
+                        <tr>
+                            <td>HeatSense Kit</td>
+                            <td>$399</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td class="cmp-partial">Partial</td>
+                            <td class="cmp-no">✗</td>
+                            <td class="cmp-no">✗</td>
+                        </tr>
+                        <tr>
+                            <td>Bodytrak</td>
+                            <td>Enterprise enquiry</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td class="cmp-partial">Partial</td>
+                            <td class="cmp-no">✗</td>
+                            <td class="cmp-no">✗</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── References ── -->
+    <section class="section bg-light" style="padding-top:2rem;">
+        <div class="section-inner">
+            <span class="section-label reveal">Sources</span>
+            <ul class="ref-list reveal">
+                <li><span class="ref-num">Notley</span> Notley SR et al. (2023). Empirical adaption of construction
+                    work/rest schedules. <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4639354"
+                        target="_blank">SSRN →</a></li>
+                <li><span class="ref-num">Kim</span> Kim J et al. (2023). Field-based heatwave risk assessment.
+                    Asia-Pacific J Atmos Sci. <a href="https://doi.org/10.1007/s13143-023-00326-4" target="_blank">DOI
+                        →</a></li>
+                <li><span class="ref-num">Umer</span> Umer W et al. (2020). Wearable fatigue prediction ≥85% accuracy.
+                    Expert Syst Appl. <a href="https://doi.org/10.1016/j.eswa.2020.113405" target="_blank">DOI →</a>
+                </li>
+                <li><span class="ref-num">Flouris</span> Flouris AD et al. (2025). Wearable device-based interventions
+                    in heat-exposed outdoor workers. <a href="https://doi.org/10.1186/s12889-025-24262-2"
+                        target="_blank">BMC Public Health →</a></li>
+                <li><span class="ref-num">CORE 2</span> greenTEG CORE 2 Technical Specs. <a
+                        href="https://help.corebodytemp.com/en/articles/10446468-technical-specifications-core-1"
+                        target="_blank">corebodytemp.com →</a></li>
+                <li><span class="ref-num">greenteg</span> greenTEG heat injury cost (~$79K). <a
+                        href="https://www.greenteg.com/en/calera-gt-work-safety" target="_blank">greenteg.com →</a></li>
+                <li><span class="ref-num">SlateSafety</span> SlateSafety BAND V2 Specs. <a
+                        href="https://slatesafety.com/products/band-v2/" target="_blank">slatesafety.com →</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="section bg-sky" style="padding-top:5rem;padding-bottom:5rem;">
+        <div class="section-inner" style="text-align:center;">
+            <span class="section-label reveal" style="margin:0 auto 1rem;display:inline-flex;">Next Level</span>
+            <h2 class="section-title reveal">Add Active Cooling Stations</h2>
+            <p class="section-desc reveal" style="margin:0 auto 2.5rem;">Combine the sensing platform with palmar
+                vasocooling stations for up to 35% productivity uplift and 50% reduction in absenteeism — the most
+                powerful heat protection available.</p>
+            <a href="platform.html" class="btn btn-primary reveal">Explore the Full Platform →</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="nav-logo" style="position:static;">
+                    <div class="logo-icon">🌡️</div><span class="logo-text">CoolWork</span>
+                </div>
+                <p>Evidence-based heat cooling solutions for workers in a warming world.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h5>Products</h5>
+                    <ul>
+                        <li><a href="solutions.html">Passive Solutions</a></li>
+                        <li><a href="sensing.html">Sensing Platform</a></li>
+                        <li><a href="platform.html">Full Platform</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 CoolWork. All rights reserved.</span>
+            <span>Built for a warming world.</span>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

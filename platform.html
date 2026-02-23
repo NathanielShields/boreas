@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensing &amp; Cooling Platform — CoolWork</title>
+    <meta name="description"
+        content="The full system: biometric sensors + thermoelectric palmar vasocooling stations. Up to 35% productivity uplift and 50% reduction in heat-related absenteeism. $200–$700 per worker.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* hero override — cyan */
+        .platform-hero {
+            background: linear-gradient(135deg, #001a20 0%, #08090d 50%, #001220 100%);
+        }
+
+        /* Station visual */
+        .station-schematic {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .station-schematic::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(6, 182, 212, 0.07) 0%, transparent 60%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .station-icon-large {
+            font-size: 5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .station-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .station-badge {
+            padding: 0.35rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            color: var(--color-accent3);
+        }
+
+        /* Power comparison bar */
+        .power-comparison {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .power-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .power-label {
+            min-width: 170px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .power-track {
+            flex: 1;
+            height: 10px;
+            background: rgba(30, 60, 120, 0.07);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .power-fill {
+            height: 100%;
+            border-radius: 5px;
+        }
+
+        .power-val {
+            min-width: 80px;
+            text-align: right;
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        /* Smart features grid */
+        .smart-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .smart-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            transition: all var(--transition-base);
+        }
+
+        .smart-card:hover {
+            border-color: rgba(6, 182, 212, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .smart-card .s-icon {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .smart-card h4 {
+            color: var(--text-primary);
+            margin-bottom: 0.4rem;
+            font-size: 1rem;
+        }
+
+        .smart-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* BOM station table */
+        .bom-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .bom-table thead th {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .bom-table tbody tr {
+            border-bottom: 1px solid var(--color-border);
+            transition: background var(--transition-fast);
+        }
+
+        .bom-table tbody tr:hover {
+            background: rgba(255, 255, 255, .02);
+        }
+
+        .bom-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+        .bom-table td {
+            padding: 0.7rem 1rem;
+            color: var(--text-secondary);
+        }
+
+        .bom-table td:first-child {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .bom-table .total-row td {
+            color: var(--color-accent3);
+            font-weight: 700;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            background: rgba(6, 182, 212, 0.05);
+        }
+
+        /* Uplift comparison ring (text-based) */
+        .uplift-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .uplift-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .uplift-card.ours {
+            border-color: rgba(37, 99, 235, 0.25);
+            background: rgba(37, 99, 235, 0.04);
+        }
+
+        .uplift-pct-big {
+            font-family: var(--font-primary);
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin: 0.5rem 0;
+        }
+
+        .uplift-card h4 {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .uplift-card .sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .uplift-card p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.75rem;
+        }
+
+        @media (max-width: 768px) {
+            .smart-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .uplift-compare {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .smart-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav">
+        <div class="nav-logo">
+            <div class="logo-icon">🌡️</div>
+            <span class="logo-text">CoolWork</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="problem.html">The Problem</a></li>
+            <li><a href="solutions.html">Solutions</a></li>
+            <li><a href="sensing.html">Sensing Platform</a></li>
+            <li><a href="platform.html" class="active">Full Platform</a></li>
+            <li><a href="platform.html" class="nav-cta">Get Started →</a></li>
+        </ul>
+        <div class="nav-hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <div class="hero-tag">
+                <span class="dot"></span>Section 4 · Full System
+            </div>
+            <h1>Sensing <span style="color:var(--text-secondary);font-weight:300;">&amp;</span> <span
+                    style="background:var(--grad-blue);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">Cooling
+                    Platform</span></h1>
+            <p>The complete system: continuous biometric monitoring combined with shared thermoelectric palmar
+                vasocooling stations. The most effective heat protection available for outdoor and industrial workers —
+                at a cost of $200–$700 per worker.</p>
+            <div style="margin-top:2rem;display:flex;gap:1rem;flex-wrap:wrap;">
+                <a href="#specs" class="btn btn-primary">Technical Specs</a>
+                <a href="sensing.html" class="btn btn-secondary">Sensing Platform Only</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="glow-divider"></div>
+
+
+    <!-- ── Top KPIs ── -->
+    <section class="section" style="padding-top:4rem;padding-bottom:4rem;background:var(--color-surface);">
+        <div class="section-inner">
+            <div class="grid-4 reveal">
+                <div class="stat-tile" style="text-align:center;padding:2rem 1rem;">
+                    <div
+                        style="font-family:var(--font-primary);font-size:2.5rem;font-weight:900;background:var(--grad-blue);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">
+                        20–35%</div>
+                    <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.5rem;">Work output uplift at
+                        WBGT 32°C</div>
+                </div>
+                <div class="stat-tile" style="text-align:center;padding:2rem 1rem;">
+                    <div style="font-family:var(--font-primary);font-size:2.5rem;font-weight:900;background:var(--grad-blue);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;"
+                        data-counter="170" data-suffix=" min">170 min</div>
+                    <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.5rem;">Effective work
+                        returned per 8-hr shift</div>
+                </div>
+                <div class="stat-tile" style="text-align:center;padding:2rem 1rem;">
+                    <div
+                        style="font-family:var(--font-primary);font-size:2.5rem;font-weight:900;background:var(--grad-blue);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">
+                        50%</div>
+                    <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.5rem;">Reduction in
+                        heat-related absenteeism</div>
+                </div>
+                <div class="stat-tile" style="text-align:center;padding:2rem 1rem;">
+                    <div
+                        style="font-family:var(--font-primary);font-size:2rem;font-weight:900;background:var(--grad-blue);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">
+                        $200–$700</div>
+                    <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.5rem;">Per worker (sensor +
+                        station share)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── System Overview ── -->
+    <section class="section">
+        <div class="section-inner">
+            <span class="section-label reveal">The System</span>
+            <h2 class="section-title reveal">How the Full Platform Works</h2>
+
+            <div class="two-col wide-left reveal">
+                <div>
+                    <p style="color:var(--text-secondary);margin-bottom:2rem;">The sensing layer monitors every worker
+                        in real time. It determines the precise moment each worker's heat strain requires a break and
+                        directs them to a shared cooling station — maximizing the cooling ROI from each station and
+                        minimizing station count required on site.</p>
+
+                    <ul class="feature-list">
+                        <li>
+                            <div class="fi-icon blue">🌡️</div>
+                            <div class="fi-text">
+                                <strong>Biometric Sensors (same as Tier 3)</strong>
+                                <span>Chest-mounted, IP67, 5–7 day battery. Core temp ±0.2°C, HR ±2 bpm. Monitors and
+                                    scores each worker's Heat Strain Index in real time.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="fi-icon cyan">❄️</div>
+                            <div class="fi-text">
+                                <strong>Thermoelectric Palm-Cooling Stations</strong>
+                                <span>Mains-powered stations with 2–4 cooling positions. Workers place palms on cooling
+                                    surfaces during optimally timed breaks. 80–200 W per position — far exceeding any
+                                    wearable device.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="fi-icon orange">📊</div>
+                            <div class="fi-text">
+                                <strong>Queue Optimization &amp; Station Routing</strong>
+                                <span>The platform balances cooling urgency across workers, minimizes wait times, and
+                                    routes the highest-strain workers to stations first — maximizing cooling ROI per
+                                    station.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="fi-icon green">🔮</div>
+                            <div class="fi-text">
+                                <strong>Per-Worker Predictive Heat Models</strong>
+                                <span>Individual heat response patterns learned over time forecast required station
+                                    count for upcoming weather — allowing employers to right-size cooling infrastructure
+                                    to actual demand.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="station-schematic">
+                    <div class="station-icon-large">🖥️</div>
+                    <h3 style="color:var(--text-primary);margin-bottom:0.5rem;">Palm-Cooling Station</h3>
+                    <p style="font-size:0.9rem;color:var(--text-secondary);">Thermoelectric • Mains-powered • 2–4
+                        positions • Dry contact</p>
+                    <div class="station-badges">
+                        <span class="station-badge">80–200 W / position</span>
+                        <span class="station-badge">IP54 weatherproof</span>
+                        <span class="station-badge">20–40 kg</span>
+                        <span class="station-badge">15–50 workers / station</span>
+                        <span class="station-badge">No consumables</span>
+                        <span class="station-badge">&gt;20,000 sessions</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Core Science: Glabrous Skin ── -->
+    <section class="section" style="background:var(--color-surface);padding-top:4rem;padding-bottom:4rem;">
+        <div class="section-inner">
+            <span class="section-label reveal">The Science</span>
+            <h2 class="section-title reveal">Why Palms? Glabrous Skin &amp; AVAs</h2>
+            <div class="two-col reveal">
+                <div>
+                    <p style="margin-bottom:1.25rem;">Glabrous (hairless) skin on the palms contains specialized
+                        arteriovenous anastomoses (AVAs) — direct arterio-venous shunts that can dissipate heat at
+                        &gt;5× the rate of regular skin surfaces. This is the physiological mechanism behind the
+                        Stanford thermoregulation research and the basis for palmar vasocooling products like CoolMitt
+                        and CET CoreTx.</p>
+                    <p style="margin-bottom:1.5rem;">Our stations exploit this pathway with sustained, high-power
+                        thermoelectric cooling — something battery-powered wearables cannot achieve. Unlike forearm
+                        water immersion troughs, the system is dry, hygienic, digitally controlled, and requires no
+                        water management.</p>
+                    <div class="alert-banner success">
+                        <span class="alert-icon">✅</span>
+                        <div class="alert-text">
+                            <h4>Firefighter Recovery Benchmark</h4>
+                            <p>CoolMitt research shows firefighters recover 118% faster with palmar vasocooling versus
+                                passive rest. Extremity cooling can increase work tolerance time by up to 60% (HPRC).
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h4 style="color:var(--text-primary);margin-bottom:1rem;">Cooling Power Comparison</h4>
+                    <div class="power-comparison">
+                        <div class="power-row">
+                            <span class="power-label">CoolWork Station (ours)</span>
+                            <div class="power-track">
+                                <div class="power-fill"
+                                    style="width:100%;background:linear-gradient(90deg,#06b6d4,#3b82f6);"></div>
+                            </div>
+                            <span class="power-val" style="color:var(--color-accent3);">80–200 W</span>
+                        </div>
+                        <div class="power-row">
+                            <span class="power-label">Forearm Immersion</span>
+                            <div class="power-track">
+                                <div class="power-fill" style="width:80%;background:#f97316;"></div>
+                            </div>
+                            <span class="power-val" style="color:var(--color-accent);">120–200 W</span>
+                        </div>
+                        <div class="power-row">
+                            <span class="power-label">CoolMitt (wearable)</span>
+                            <div class="power-track">
+                                <div class="power-fill" style="width:25%;background:#f59e0b;"></div>
+                            </div>
+                            <span class="power-val" style="color:#f59e0b;">40–60 W</span>
+                        </div>
+                        <div class="power-row">
+                            <span class="power-label">PCM Neck Tube</span>
+                            <div class="power-track">
+                                <div class="power-fill" style="width:20%;background:#94a3b8;"></div>
+                            </div>
+                            <span class="power-val" style="color:#94a3b8;">20–80 W</span>
+                        </div>
+                        <div class="power-row">
+                            <span class="power-label">PCM Wristband</span>
+                            <div class="power-track">
+                                <div class="power-fill" style="width:10%;background:#64748b;"></div>
+                            </div>
+                            <span class="power-val" style="color:#64748b;">5–25 W</span>
+                        </div>
+                        <div class="power-row">
+                            <span class="power-label">Evaporative Towel</span>
+                            <div class="power-track">
+                                <div class="power-fill" style="width:15%;background:#475569;"></div>
+                            </div>
+                            <span class="power-val" style="color:#475569;">20–60 W/m²</span>
+                        </div>
+                    </div>
+                    <p style="font-size:0.78rem;color:var(--text-muted);margin-top:1rem;">At 300 W metabolic output,
+                        recovering 80–200 W during a 10-min break is equivalent to working in conditions 3–6°C WBGT
+                        cooler than ambient.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Uplift ── -->
+    <section class="section">
+        <div class="section-inner">
+            <span class="section-label reveal">Efficacy</span>
+            <h2 class="section-title reveal">Productivity Uplift vs Sensing-Only</h2>
+
+            <div class="uplift-compare reveal">
+                <div class="uplift-card">
+                    <h4>Sensing Platform Only (Tier 3)</h4>
+                    <div class="uplift-pct-big"
+                        style="background:var(--grad-blue);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+                        10–25%</div>
+                    <div class="sub">50–120 min returned per shift</div>
+                    <p>Monitoring + individualized breaks + early detection + weather planning. No active cooling
+                        hardware.</p>
+                </div>
+                <div class="uplift-card ours">
+                    <h4>Full Platform (Tier 4) ✦</h4>
+                    <div class="uplift-pct-big"
+                        style="background:linear-gradient(135deg,#06b6d4,#3b82f6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+                        20–35%</div>
+                    <div class="sub">100–170 min returned per shift</div>
+                    <p>All sensing benefits, plus 8–15% additional uplift from palmar vasocooling at optimally timed
+                        sensor-scheduled breaks. Workers receive rapid physiological cooling that shortens required
+                        break durations.</p>
+                </div>
+            </div>
+
+            <div class="callout cyan mt-4 reveal">
+                <h4>Temperature Reduction per Session</h4>
+                <p>Station-based palmar vasocooling achieves <strong style="color:var(--text-primary);">0.3–1.0°C core
+                        temperature reduction per 10–15 min session</strong> — faster and more effective than any
+                    wearable. Reference: palm cooling at 42 W achieved 0.38°C reduction in 50 min (Barr et al., 2009);
+                    our stations at 80–200 W target equivalent reduction in 10–15 min. Concurrent heart rate drop: 10–25
+                    bpm per session (HPRC).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Technical Specs ── -->
+    <section id="specs" class="section" style="background:var(--color-surface);padding-top:4rem;">
+        <div class="section-inner">
+            <span class="section-label reveal">Technical Specifications</span>
+            <h2 class="section-title reveal">Cooling Station Hardware</h2>
+
+            <div class="grid-2 reveal mt-3">
+                <div>
+                    <h4 style="color:var(--text-primary);margin-bottom:1.25rem;">Station Specs</h4>
+                    <table style="width:100%;border-collapse:collapse;font-size:0.87rem;">
+                        <tr style="border-bottom:1px solid var(--color-border);">
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;min-width:150px;">
+                                Cooling Power</td>
+                            <td style="padding:0.65rem 0.5rem;color:var(--text-primary);">80–200 W per position</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--color-border);">
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;">
+                                Positions</td>
+                            <td style="padding:0.65rem 0.5rem;color:var(--text-primary);">2–4 simultaneous workers</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--color-border);">
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;">
+                                Session Duration</td>
+                            <td style="padding:0.65rem 0.5rem;color:var(--text-primary);">5–15 min per worker per visit;
+                                2–4 sessions/shift</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--color-border);">
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;">
+                                Power Supply</td>
+                            <td style="padding:0.65rem 0.5rem;color:var(--text-primary);">110 V / 220 V AC or portable
+                                generator — no battery limit</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--color-border);">
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;">
+                                Cooling Mechanism</td>
+                            <td style="padding:0.65rem 0.5rem;color:var(--text-primary);">Thermoelectric (Peltier) — dry
+                                palm contact, no water</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--color-border);">
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;">
+                                Weight</td>
+                            <td style="padding:0.65rem 0.5rem;color:var(--text-primary);">20–40 kg (wheeled; compare
+                                CoreTx at 50 kg)</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--color-border);">
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;">
+                                Water Resistance</td>
+                            <td style="padding:0.65rem 0.5rem;color:var(--text-primary);">IP54 (splash and dust
+                                resistant)</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--color-border);">
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;">
+                                Workers per Station</td>
+                            <td style="padding:0.65rem 0.5rem;color:var(--text-primary);">15–50 workers per shift
+                                (AI-optimized scheduling)</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--color-border);">
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;">
+                                Consumables</td>
+                            <td style="padding:0.65rem 0.5rem;color:var(--text-primary);">None — no ice, no water
+                                replacement required</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--color-border);">
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;">
+                                Durability</td>
+                            <td style="padding:0.65rem 0.5rem;color:var(--text-primary);">&gt;5 years; &gt;20,000
+                                sessions; field-replaceable Peltier modules</td>
+                        </tr>
+                        <tr style="border-bottom:1px solid var(--color-border);">
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;">
+                                Operating Range</td>
+                            <td style="padding:0.65rem 0.5rem;color:var(--text-primary);">−10°C to +55°C; effective in
+                                dry and humid climates</td>
+                        </tr>
+                        <tr>
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--text-muted);font-size:0.76rem;font-weight:700;text-transform:uppercase;">
+                                Retail Price</td>
+                            <td
+                                style="padding:0.65rem 0.5rem;color:var(--color-accent3);font-weight:700;font-family:var(--font-primary);">
+                                $3,000–$8,000 per station</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div>
+                    <h4 style="color:var(--text-primary);margin-bottom:1.25rem;">Smart Features</h4>
+                    <div style="display:flex;flex-direction:column;gap:1rem;">
+                        <div class="smart-card">
+                            <div class="s-icon">📊</div>
+                            <h4>Sensor-Driven Break Scheduling</h4>
+                            <p>System determines optimal cooling-station visit timing per worker from real-time
+                                biometrics — not fixed intervals.</p>
+                        </div>
+                        <div class="smart-card">
+                            <div class="s-icon">⚖️</div>
+                            <h4>Queue Optimization</h4>
+                            <p>Balances cooling urgency across the workforce to minimize wait times and maximize cooling
+                                ROI per station.</p>
+                        </div>
+                        <div class="smart-card">
+                            <div class="s-icon">🎯</div>
+                            <h4>Adaptive Cooling Intensity</h4>
+                            <p>Station adjusts thermoelectric power based on each worker's incoming biometric state —
+                                hotter workers receive more aggressive cooling.</p>
+                        </div>
+                        <div class="smart-card">
+                            <div class="s-icon">🌤️</div>
+                            <h4>Weather Integration</h4>
+                            <p>Adjusts scheduling and cooling intensity proactively for forecast conditions up to 7 days
+                                out. Right-sizes station count to actual predicted demand.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section" style="background:var(--color-surface);padding-top:3rem;padding-bottom:3rem;">
+        <div class="section-inner">
+            <span class="section-label reveal">Sources</span>
+            <ul class="ref-list reveal">
+                <li><span class="ref-num">CoolMitt</span> CoolMitt specifications ($995, 6 hr, 118% faster recovery). <a
+                        href="https://coolmitt.com/products/coolmett" target="_blank">coolmitt.com →</a></li>
+                <li><span class="ref-num">CoreTx</span> CET CryoSpas CoreTx (2-pos. palm cooling, 50 kg, 45–60 sec
+                    sessions). <a href="https://www.coretxcooling.com/coretx-palm-cooling/"
+                        target="_blank">coretxcooling.com →</a></li>
+                <li><span class="ref-num">Kühler</span> Kühler palm cooling ($449, 25% lower core temp rise). <a
+                        href="https://getkuhler.com/" target="_blank">getkuhler.com →</a></li>
+                <li><span class="ref-num">CPWR</span> Arm Immersion Cooling (0.2–1.0°C in 10 min, up to 6 users). <a
+                        href="https://www.cpwrconstructionsolutions.org/residential_construction/solution/989/arm-immersion-cooling-system.html"
+                        target="_blank">cpwrconstructionsolutions.org →</a></li>
+                <li><span class="ref-num">HPRC</span> Extremity Cooling (60% increase in work tolerance). <a
+                        href="https://www.hprc-online.org/resources-partners/whec/research/extremity-cooling-heat"
+                        target="_blank">hprc-online.org →</a></li>
+                <li><span class="ref-num">Barr 2009</span> Palm cooling at 42 W → 0.38°C core reduction in 50 min. Eur J
+                    Appl Physiol. <a href="https://doi.org/10.1007/s00421-009-1335-8" target="_blank">DOI →</a></li>
+                <li><span class="ref-num">Grahn 2005</span> Heat extraction through palm improves aerobic endurance. J
+                    Appl Physiol. <a href="https://doi.org/10.1152/japplphysiol.00093.2005" target="_blank">DOI →</a>
+                </li>
+                <li><span class="ref-num">Stanford</span> Stanford glabrous skin thermoregulation research. <a
+                        href="https://purl.stanford.edu/jp846fr0192" target="_blank">stanford.edu →</a></li>
+                <li><span class="ref-num">Selkirk 2004</span> Cooling hyperthermic firefighters by forearm/hand
+                    immersion. <a href="https://pubmed.ncbi.nlm.nih.gov/17571655/" target="_blank">PubMed →</a></li>
+                <li><span class="ref-num">Smallcombe 2022</span> Quantifying impact of heat on physical work capacity.
+                    <a href="https://doi.org/10.1007/s00484-022-02370-7" target="_blank">Int J Biometeorol →</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="nav-logo" style="position:static;">
+                    <div class="logo-icon">🌡️</div><span class="logo-text">CoolWork</span>
+                </div>
+                <p>Evidence-based heat cooling solutions for workers in a warming world.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h5>Products</h5>
+                    <ul>
+                        <li><a href="solutions.html">Passive Solutions</a></li>
+                        <li><a href="sensing.html">Sensing Platform</a></li>
+                        <li><a href="platform.html">Full Platform</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h5>Learn</h5>
+                    <ul>
+                        <li><a href="problem.html">The Problem</a></li>
+                        <li><a href="problem.html#references">References</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 CoolWork. All rights reserved.</span>
+            <span>Built for a warming world.</span>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

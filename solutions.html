@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passive Cooling Solutions — CoolWork</title>
+    <meta name="description"
+        content="Evidence-based passive and behavioral cooling solutions — evaporative towels, wristbands, neck fans, PCM tubes, shift scheduling — for workers in extreme heat.">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Filter tabs */
+        .filter-bar {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .filter-btn {
+            padding: 0.45rem 1.1rem;
+            border-radius: 999px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            border: 1px solid var(--color-border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all var(--transition-fast);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: rgba(249, 115, 22, 0.1);
+            border-color: rgba(249, 115, 22, 0.3);
+            color: var(--color-accent);
+        }
+
+        /* Big solution cards */
+        .sol-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .sol-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .sol-card:hover {
+            border-color: rgba(249, 115, 22, 0.2);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        .sol-header {
+            padding: 2rem 2rem 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .sol-icon {
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background: rgba(249, 115, 22, 0.08);
+            border: 1px solid rgba(249, 115, 22, 0.15);
+        }
+
+        .sol-header-text {
+            flex: 1;
+        }
+
+        .sol-header-text h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .sol-header-text .price-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(249, 115, 22, 0.1);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--color-accent);
+        }
+
+        .sol-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+        }
+
+        .sol-main {
+            padding: 2rem;
+            border-right: 1px solid var(--color-border);
+        }
+
+        .sol-specs {
+            padding: 2rem;
+        }
+
+        .sol-desc {
+            color: var(--text-secondary);
+            font-size: 0.93rem;
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .spec-table tr {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .spec-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .spec-table td {
+            padding: 0.6rem 0.5rem;
+            font-size: 0.85rem;
+            vertical-align: top;
+        }
+
+        .spec-table td:first-child {
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            white-space: nowrap;
+            padding-right: 1rem;
+            min-width: 120px;
+        }
+
+        .spec-table td:last-child {
+            color: var(--text-primary);
+        }
+
+        .spec-val-highlight {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            color: var(--color-accent) !important;
+        }
+
+        .productivity-bar {
+            margin: 1.25rem 0;
+        }
+
+        .productivity-bar .bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .productivity-bar .bar-track {
+            height: 10px;
+            background: rgba(255, 255, 255, .06);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .productivity-bar .bar-fill {
+            height: 100%;
+            border-radius: 5px;
+            background: var(--grad-orange);
+            position: relative;
+        }
+
+        .sol-sources {
+            padding: 1rem 2rem;
+            border-top: 1px solid var(--color-border);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .sol-sources a {
+            color: var(--color-accent2);
+            margin-right: 0.75rem;
+            text-decoration: underline;
+        }
+
+        /* scheduling section */
+        .sched-card {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            transition: all var(--transition-base);
+        }
+
+        .sched-card:hover {
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .sol-body {
+                grid-template-columns: 1fr;
+            }
+
+            .sol-main {
+                border-right: none;
+                border-bottom: 1px solid var(--color-border);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="nav">
+        <div class="nav-logo">
+            <div class="logo-icon">🌡️</div>
+            <span class="logo-text">CoolWork</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="problem.html">The Problem</a></li>
+            <li><a href="solutions.html" class="active">Solutions</a></li>
+            <li><a href="sensing.html">Sensing Platform</a></li>
+            <li><a href="platform.html">Full Platform</a></li>
+            <li><a href="platform.html" class="nav-cta">Get Started →</a></li>
+        </ul>
+        <div class="nav-hamburger"><span></span><span></span><span></span></div>
+    </nav>
+
+    <div class="page-hero">
+        <div class="page-hero-inner">
+            <div class="hero-tag"><span class="dot"></span>Section 2</div>
+            <h1>Best Practices &amp; <span
+                    style="background:var(--grad-orange);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">Passive
+                    Solutions</span></h1>
+            <p>Evidence-based passive and behavioral cooling interventions. Each solution below includes real-world
+                efficacy data, technical specifications, and environmental constraints — so your organization can deploy
+                the right tools at the right price point.</p>
+        </div>
+    </div>
+
+    <div class="glow-divider"></div>
+
+    <section class="section">
+        <div class="section-inner">
+            <span class="section-label reveal">Passive Cooling</span>
+            <h2 class="section-title reveal">Wearable Cooling Products</h2>
+            <p class="section-desc reveal">All efficacy data measured at <strong style="color:var(--text-primary);">WBGT
+                    ≈ 32°C</strong>, typical peak-hazard outdoor conditions. Performance degrades significantly at
+                higher humidity — see constraints per product.</p>
+
+            <div class="sol-grid">
+
+                <!-- 1. Evaporative Cooling Towel -->
+                <div class="sol-card reveal">
+                    <div class="sol-header">
+                        <div class="sol-icon">🧣</div>
+                        <div class="sol-header-text">
+                            <h3>Evaporative Cooling Towel</h3>
+                            <p style="color:var(--text-secondary);font-size:0.88rem;margin:0.25rem 0 0.6rem;">Wetted
+                                towel worn around neck / shoulders</p>
+                            <span class="price-badge">$5 – $25 <span
+                                    style="font-size:0.8rem;font-weight:400;color:var(--text-muted);">/
+                                    unit</span></span>
+                        </div>
+                    </div>
+
+                    <div class="sol-body">
+                        <div class="sol-main">
+                            <p class="sol-desc">A simple, highly accessible first-line intervention. Works by leveraging
+                                the latent heat of vaporization at the neck and shoulders — a high-blood-flow area — to
+                                draw heat away from core circulation. Best in dry climates; less effective as humidity
+                                rises.</p>
+
+                            <div class="productivity-bar">
+                                <div class="bar-label">
+                                    <span>Productivity Uplift at WBGT 32°C</span>
+                                    <span style="color:var(--color-accent);">3–8%</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill" style="width:8%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="metrics-row">
+                                <div class="metric-chip">
+                                    <span class="chip-val">15–40 min</span>
+                                    <span class="chip-label">Work returned / 8 hr shift</span>
+                                </div>
+                                <div class="metric-chip">
+                                    <span class="chip-val">20–60 W/m²</span>
+                                    <span class="chip-label">Local cooling power</span>
+                                </div>
+                                <div class="metric-chip blue">
+                                    <span class="chip-val chip-blue">0.5–3 hr</span>
+                                    <span class="chip-label">Effect duration</span>
+                                </div>
+                            </div>
+
+                            <div class="constraint-tags">
+                                <span class="tag warn">↓ humid climates</span>
+                                <span class="tag ok">✓ re-wet any water source</span>
+                                <span class="tag neutral">PVA or textile</span>
+                            </div>
+                        </div>
+
+                        <div class="sol-specs">
+                            <table class="spec-table">
+                                <tr>
+                                    <td>Core Temp Δ</td>
+                                    <td>&lt;0.1–0.3°C / 10 min (skin primarily)</td>
+                                </tr>
+                                <tr>
+                                    <td>Weight</td>
+                                    <td>0.05–0.2 kg (wet)</td>
+                                </tr>
+                                <tr>
+                                    <td>Durability</td>
+                                    <td>100s–1000s of uses (washable)</td>
+                                </tr>
+                                <tr>
+                                    <td>Recharge</td>
+                                    <td>Every 30–180 min depending on humidity</td>
+                                </tr>
+                                <tr>
+                                    <td>Humidity</td>
+                                    <td>Best in low RH; drops sharply at high RH</td>
+                                </tr>
+                                <tr>
+                                    <td>Temperature Range</td>
+                                    <td>0°C – 50°C ambient</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="sol-sources">
+                        Sources:
+                        <a href="https://journals.physiology.org/doi/full/10.1152/japplphysiol.01271.2012"
+                            target="_blank">AJP 2012</a>
+                        <a href="https://doi.org/10.1016/S2542-5196(18)30237-7" target="_blank">Lancet PH 2018</a>
+                        <a href="https://doi.org/10.1016/j.csite.2025.107029" target="_blank">CSITE 2025</a>
+                    </div>
+                </div>
+
+                <!-- 2. Wristband -->
+                <div class="sol-card reveal">
+                    <div class="sol-header">
+                        <div class="sol-icon">🧊</div>
+                        <div class="sol-header-text">
+                            <h3>Wristbands / Pulse-Point Cooling</h3>
+                            <p style="color:var(--text-secondary);font-size:0.88rem;margin:0.25rem 0 0.6rem;">Gel or ice
+                                wristbands at forearm / pulse points</p>
+                            <span class="price-badge">$10 – $50</span>
+                        </div>
+                    </div>
+
+                    <div class="sol-body">
+                        <div class="sol-main">
+                            <p class="sol-desc">Conduction-based cooling targeting the high-vascularity wrist and
+                                forearm. Unlike evaporative towels, effectiveness does not depend on humidity — a key
+                                advantage in tropical climates. Practical wearable bands deliver 5–25 W cooling vs. the
+                                immersion upper bound of 120–200 W.</p>
+
+                            <div class="productivity-bar">
+                                <div class="bar-label">
+                                    <span>Productivity Uplift at WBGT 32°C</span>
+                                    <span style="color:var(--color-accent);">3–8%</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill" style="width:8%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="metrics-row">
+                                <div class="metric-chip">
+                                    <span class="chip-val">15–40 min</span>
+                                    <span class="chip-label">Work returned / shift</span>
+                                </div>
+                                <div class="metric-chip">
+                                    <span class="chip-val">5–25 W</span>
+                                    <span class="chip-label">Cooling power (both wrists)</span>
+                                </div>
+                                <div class="metric-chip blue">
+                                    <span class="chip-val">30–90 min</span>
+                                    <span class="chip-label">Duration per charge</span>
+                                </div>
+                            </div>
+
+                            <div class="constraint-tags">
+                                <span class="tag ok">✓ humidity-independent</span>
+                                <span class="tag warn">⚠ freeze logistics required</span>
+                                <span class="tag neutral">2–6 swaps / shift</span>
+                            </div>
+                        </div>
+
+                        <div class="sol-specs">
+                            <table class="spec-table">
+                                <tr>
+                                    <td>Core Temp Δ</td>
+                                    <td>~0.05–0.2°C / 10–20 min (field); up to 0.6°C in lab immersion</td>
+                                </tr>
+                                <tr>
+                                    <td>Weight</td>
+                                    <td>0.05–0.3 kg</td>
+                                </tr>
+                                <tr>
+                                    <td>Durability</td>
+                                    <td>100–500 freeze cycles (gel); 500–1,000 (PCM inserts)</td>
+                                </tr>
+                                <tr>
+                                    <td>Recharge</td>
+                                    <td>2–6 swaps per 8-hr shift; 30–120 min refreeze</td>
+                                </tr>
+                                <tr>
+                                    <td>Humidity</td>
+                                    <td>Effective in both dry and humid heat (conduction)</td>
+                                </tr>
+                                <tr>
+                                    <td>Constraint</td>
+                                    <td>Requires cold storage / freezer on site</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="sol-sources">
+                        Sources:
+                        <a href="https://doi.org/10.3389/fphys.2023.1143447" target="_blank">Front. Physiol. 2023</a>
+                        <a href="https://doi.org/10.1016/j.jtherbio.2020.102530" target="_blank">J. Therm. Biol.
+                            2020</a>
+                    </div>
+                </div>
+
+                <!-- 3. Neck Fan -->
+                <div class="sol-card reveal">
+                    <div class="sol-header">
+                        <div class="sol-icon">💨</div>
+                        <div class="sol-header-text">
+                            <h3>Neck Fan</h3>
+                            <p style="color:var(--text-secondary);font-size:0.88rem;margin:0.25rem 0 0.6rem;">
+                                Battery-powered active convective cooling</p>
+                            <span class="price-badge">$15 – $120</span>
+                        </div>
+                    </div>
+
+                    <div class="sol-body">
+                        <div class="sol-main">
+                            <p class="sol-desc">Active airflow enhances evaporative cooling of sweat, improving
+                                perceptual comfort and allowing more efficient perspiration. Stronger effect in
+                                moderate-humidity heat; less effective in still, very humid air. Can be obstructive if
+                                full PPE is required.</p>
+
+                            <div class="productivity-bar">
+                                <div class="bar-label">
+                                    <span>Productivity Uplift at WBGT 32°C</span>
+                                    <span style="color:var(--color-accent);">3–10%</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill" style="width:10%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="metrics-row">
+                                <div class="metric-chip">
+                                    <span class="chip-val">15–50 min</span>
+                                    <span class="chip-label">Work returned / shift</span>
+                                </div>
+                                <div class="metric-chip">
+                                    <span class="chip-val">20–80 W</span>
+                                    <span class="chip-label">Local convective effect</span>
+                                </div>
+                                <div class="metric-chip blue">
+                                    <span class="chip-val">2–8 hr</span>
+                                    <span class="chip-label">Battery life</span>
+                                </div>
+                            </div>
+
+                            <div class="constraint-tags">
+                                <span class="tag warn">↓ very humid / still air</span>
+                                <span class="tag warn">⚠ PPE compatibility</span>
+                                <span class="tag neutral">Rechargeable USB</span>
+                            </div>
+                        </div>
+
+                        <div class="sol-specs">
+                            <table class="spec-table">
+                                <tr>
+                                    <td>Core Temp Δ</td>
+                                    <td>&lt;0.2°C / 10–20 min; stronger perceptual benefit</td>
+                                </tr>
+                                <tr>
+                                    <td>Weight</td>
+                                    <td>0.1–0.4 kg</td>
+                                </tr>
+                                <tr>
+                                    <td>Durability</td>
+                                    <td>1–3 years (consumer); longer industrial-rated</td>
+                                </tr>
+                                <tr>
+                                    <td>Recharge</td>
+                                    <td>Once per shift (or swap batteries); 30 min–2 hr charge</td>
+                                </tr>
+                                <tr>
+                                    <td>Humidity</td>
+                                    <td>Moderate; reduced in high RH / still air</td>
+                                </tr>
+                                <tr>
+                                    <td>Noise</td>
+                                    <td>May be obtrusive in some settings</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="sol-sources">Sources: Published airflow/evaporation studies; consumer product testing.
+                    </div>
+                </div>
+
+                <!-- 4. PCM Neck Tube -->
+                <div class="sol-card reveal">
+                    <div class="sol-header">
+                        <div class="sol-icon">🥶</div>
+                        <div class="sol-header-text">
+                            <h3>Phase-Change Material (PCM) Neck Tube</h3>
+                            <p style="color:var(--text-secondary);font-size:0.88rem;margin:0.25rem 0 0.6rem;">PCM
+                                cooling tube / collar worn at neck</p>
+                            <span class="price-badge">$10 – $60</span>
+                        </div>
+                    </div>
+
+                    <div class="sol-body">
+                        <div class="sol-main">
+                            <p class="sol-desc">PCM materials absorb heat as they melt, providing continuous
+                                steady-state cooling until fully liquefied. By selecting a PCM with melting point near
+                                skin comfort (20–25°C), sensory comfort is maintained while the material absorbs
+                                metabolic and environmental heat. Best long-duration passive option — at the cost of
+                                weight and cold-storage logistics.</p>
+
+                            <div class="productivity-bar">
+                                <div class="bar-label">
+                                    <span>Productivity Uplift at WBGT 32°C</span>
+                                    <span style="color:var(--color-accent);">6–15%</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill" style="width:15%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="metrics-row">
+                                <div class="metric-chip">
+                                    <span class="chip-val">30–90 min</span>
+                                    <span class="chip-label">Work returned / shift</span>
+                                </div>
+                                <div class="metric-chip">
+                                    <span class="chip-val">20–80 W</span>
+                                    <span class="chip-label">Active melting power</span>
+                                </div>
+                                <div class="metric-chip blue">
+                                    <span class="chip-val">1–6 hr</span>
+                                    <span class="chip-label">Duration per charge</span>
+                                </div>
+                            </div>
+
+                            <div class="constraint-tags">
+                                <span class="tag ok">✓ humidity-independent</span>
+                                <span class="tag warn">⚠ heavier than towels</span>
+                                <span class="tag neutral">Rotate packs every 4–12 hr</span>
+                            </div>
+                        </div>
+
+                        <div class="sol-specs">
+                            <table class="spec-table">
+                                <tr>
+                                    <td>Core Temp Δ</td>
+                                    <td>0.1–0.5°C / 10–30 min (depends on mass)</td>
+                                </tr>
+                                <tr>
+                                    <td>Weight</td>
+                                    <td>0.2–1.0 kg (depends on PCM mass)</td>
+                                </tr>
+                                <tr>
+                                    <td>Durability</td>
+                                    <td>&gt;500 melt/refreeze cycles</td>
+                                </tr>
+                                <tr>
+                                    <td>Recharge</td>
+                                    <td>Refreeze 4–12 hr; employer rotates packs</td>
+                                </tr>
+                                <tr>
+                                    <td>Humidity</td>
+                                    <td>Effective in dry or humid heat</td>
+                                </tr>
+                                <tr>
+                                    <td>Logistics</td>
+                                    <td>Requires refrigeration or ice on site</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="sol-sources">
+                        Sources:
+                        <a href="https://doi.org/10.1016/j.matt.2024.09.008" target="_blank">Matter 2024</a>
+                    </div>
+                </div>
+
+                <!-- 5. Bandana -->
+                <div class="sol-card reveal">
+                    <div class="sol-header">
+                        <div class="sol-icon">🧢</div>
+                        <div class="sol-header-text">
+                            <h3>Bandana / Neck Buff / Head Cover</h3>
+                            <p style="color:var(--text-secondary);font-size:0.88rem;margin:0.25rem 0 0.6rem;">Passive
+                                textile + solar radiation protection</p>
+                            <span class="price-badge">$2 – $20</span>
+                        </div>
+                    </div>
+
+                    <div class="sol-body">
+                        <div class="sol-main">
+                            <p class="sol-desc">The simplest active measure in any heat protocol. Head and neck covers
+                                reduce radiant heat load from direct solar exposure — an often-underestimated factor in
+                                outdoor WBGT. Damp buffs add modest evaporative benefit. Primarily a radiant load
+                                reduction tool, not a metabolic cooling tool.</p>
+
+                            <div class="productivity-bar">
+                                <div class="bar-label">
+                                    <span>Productivity Uplift at WBGT 32°C</span>
+                                    <span style="color:var(--color-accent);">1–6%</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill" style="width:6%;"></div>
+                                </div>
+                            </div>
+
+                            <div class="metrics-row">
+                                <div class="metric-chip">
+                                    <span class="chip-val">10–30 min</span>
+                                    <span class="chip-label">Work returned / shift</span>
+                                </div>
+                                <div class="metric-chip">
+                                    <span class="chip-val">5–30 W</span>
+                                    <span class="chip-label">Net local effect</span>
+                                </div>
+                                <div class="metric-chip blue">
+                                    <span class="chip-val">Continuous</span>
+                                    <span class="chip-label">Duration (passive shade)</span>
+                                </div>
+                            </div>
+
+                            <div class="constraint-tags">
+                                <span class="tag ok">✓ negligible weight</span>
+                                <span class="tag info">◉ solar load reduction</span>
+                                <span class="tag neutral">Mainly radiant — not metabolic</span>
+                            </div>
+                        </div>
+
+                        <div class="sol-specs">
+                            <table class="spec-table">
+                                <tr>
+                                    <td>Core Temp Δ</td>
+                                    <td>&lt;0.1–0.3°C (mainly skin / radiant)</td>
+                                </tr>
+                                <tr>
+                                    <td>Weight</td>
+                                    <td>&lt;0.05 kg</td>
+                                </tr>
+                                <tr>
+                                    <td>Durability</td>
+                                    <td>Washable; multi-year</td>
+                                </tr>
+                                <tr>
+                                    <td>Recharge</td>
+                                    <td>Re-wet as needed (evaporative buff)</td>
+                                </tr>
+                                <tr>
+                                    <td>Humidity</td>
+                                    <td>Radiant benefit any weather; evap benefit less in high RH</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="sol-sources">
+                        Sources:
+                        <a href="https://doi.org/10.1186/s40798-022-00411-4" target="_blank">Sports Med Open 2022</a>
+                        <a href="https://doi.org/10.3389/fphys.2015.00314" target="_blank">Front. Physiol. 2015</a>
+                    </div>
+                </div>
+
+            </div><!-- /sol-grid -->
+
+            <!-- ── Scheduling section ── -->
+            <div id="scheduling" class="mt-4">
+                <span class="section-label reveal">Behavioral Interventions</span>
+                <h2 class="section-title reveal">Scheduling &amp; Operational Controls</h2>
+                <p class="section-desc reveal">Low-CAPEX, high-return interventions that shift <em>when</em> and
+                    <em>how</em> workers operate rather than cooling their bodies directly.</p>
+
+                <div class="grid-2 reveal">
+                    <div class="sched-card">
+                        <div class="card-icon orange"
+                            style="margin-bottom:1.25rem;font-size:1.5rem;width:52px;height:52px;">🕐</div>
+                        <h3 style="color:var(--text-primary);margin-bottom:0.5rem;">Shift Timing Adjustment</h3>
+                        <p style="color:var(--text-secondary);font-size:0.93rem;margin-bottom:1.25rem;">Avoiding peak
+                            heat hours via split shifts or night shifts. The highest-return behavioral intervention on
+                            very hot days.</p>
+                        <div class="metrics-row" style="margin-bottom:1rem;">
+                            <div class="metric-chip"><span class="chip-val">10–25%</span><span
+                                    class="chip-label">Productivity uplift on peak days</span></div>
+                            <div class="metric-chip blue"><span class="chip-val chip-blue">60–100 min</span><span
+                                    class="chip-label">Peak minutes recovered</span></div>
+                        </div>
+                        <div class="constraint-tags">
+                            <span class="tag neutral">Operational scheduling cost</span>
+                            <span class="tag info">◉ Depends on solar/diurnal profile</span>
+                        </div>
+                        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:1rem;">Source: <a
+                                href="https://link.springer.com/article/10.1186/s12889-024-20744-x" target="_blank"
+                                style="color:var(--color-accent2);">BMC Public Health 2024</a></p>
+                    </div>
+
+                    <div class="sched-card">
+                        <div class="card-icon blue"
+                            style="margin-bottom:1.25rem;font-size:1.5rem;width:52px;height:52px;">🏕️</div>
+                        <h3 style="color:var(--text-primary);margin-bottom:0.5rem;">Mandatory Rest, Shade &amp;
+                            Hydration</h3>
+                        <p style="color:var(--text-secondary);font-size:0.93rem;margin-bottom:1.25rem;">Structured rest
+                            breaks in shaded areas with hydration stations. Low CAPEX — shade canopies run hundreds to
+                            low-thousands of dollars. Required by OSHA/ISO 7243 standards.</p>
+                        <div class="metrics-row" style="margin-bottom:1rem;">
+                            <div class="metric-chip"><span class="chip-val">TBD</span><span
+                                    class="chip-label">Productivity impact</span></div>
+                            <div class="metric-chip blue"><span class="chip-val chip-blue">Low</span><span
+                                    class="chip-label">CAPEX per site</span></div>
+                        </div>
+                        <div class="constraint-tags">
+                            <span class="tag ok">✓ regulatory compliance baseline</span>
+                            <span class="tag neutral">Foundation for all other interventions</span>
+                        </div>
+                        <p style="font-size:0.8rem;color:var(--text-muted);margin-top:1rem;">Source: <a
+                                href="https://doi.org/10.1093/annweh/wxae007" target="_blank"
+                                style="color:var(--color-accent2);">Ann. Work Expo. Health 2024</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA to next tier -->
+            <div class="alert-banner info mt-4 reveal">
+                <span class="alert-icon">🔬</span>
+                <div class="alert-text">
+                    <h4>Need more than passive cooling?</h4>
+                    <p>Our Sensing Platform layer adds real-time biometric monitoring, individualized break scheduling,
+                        and predictive analytics — returning up to 120 additional effective work minutes per shift
+                        beyond what passive products alone can achieve. <a href="sensing.html"
+                            style="color:#93c5fd;font-weight:600;">Explore the Sensing Platform →</a></p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="nav-logo" style="position:static;">
+                    <div class="logo-icon">🌡️</div>
+                    <span class="logo-text">CoolWork</span>
+                </div>
+                <p>Evidence-based heat cooling solutions for workers in a warming world.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h5>Products</h5>
+                    <ul>
+                        <li><a href="solutions.html">Passive Solutions</a></li>
+                        <li><a href="sensing.html">Sensing Platform</a></li>
+                        <li><a href="platform.html">Full Platform</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 CoolWork. All rights reserved.</span>
+            <span>Built for a warming world.</span>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

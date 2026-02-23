@@ -1,0 +1,157 @@
+\section{Overview of Dehumidification Processes and Energy Intensities}
+\label{sec:dehumidification}
+
+\subsection{Thermodynamic Background and Theoretical Energy Bounds}
+Air is a mixture of \emph{dry air} (primarily N\(_2\), O\(_2\), Ar, CO\(_2\), etc.) and \emph{water vapor}. Dehumidification aims to reduce the partial pressure of water vapor in the air, either by:
+\begin{enumerate}
+  \item \textbf{Condensing} water vapor below its dew point.
+  \item \textbf{Adsorbing} or \textbf{absorbing} water onto/into a hygroscopic material.
+  \item \textbf{Separating} water through a selectively permeable membrane.
+\end{enumerate}
+
+\paragraph{Ideal Minimum Work of Separation.}
+From a thermodynamic viewpoint, removing water vapor from air can be treated as a gas-separation process. The \emph{lowest} theoretical energy requirement is set by the change in Gibbs free energy (or chemical exergy) for separating water from the air mixture at a given temperature and humidity. 
+
+In practical terms, an even simpler lower bound emerges by considering the \emph{latent heat of condensation} at ambient temperature. At around \SI{25}{\celsius}, water’s latent heat of vaporization is approximately
+\begin{equation}
+L \approx 2450 \,\text{kJ/kg} \;\approx\; 0.68\,\text{kWh/kg}.
+\end{equation}
+If the condensation is performed isothermally at \SI{25}{\celsius} and all heat is ideally expelled to a reservoir at the same temperature with negligible loss, the minimal thermodynamic work approaches the magnitude of the \emph{Gibbs free energy of vaporization}, which is somewhat \emph{less} than the full latent heat at that temperature.\cite{Bejan1997,Jacob2016} 
+
+In realistic ambient conditions and with small temperature differences (\(\Delta T\approx 5\)--\SI{10}{\celsius}\)), the “absolute” theoretical minimum often quoted is in the range of
+\[
+0.6\text{--}0.7\,\text{kWh per kg of water removed.}
+\]
+All real-world systems incur additional irreversibilities (thermal losses, non-ideal heat exchange, pressure drops, regeneration inefficiencies), so actual specific energy consumptions are generally higher by factors of 2--5 or more.\cite{ASHRAE2017,VDIMinEnergy}
+
+\subsection{Major Dehumidification Methods}
+\label{sec:major-methods}
+
+\subsubsection{Cooling-Based Condensation}
+\paragraph{Mechanical Vapor-Compression Refrigeration.}
+\begin{itemize}
+  \item \textbf{Principle:} An evaporator coil is cooled by a refrigeration cycle (e.g., using a compressor and refrigerant). Air passes over the cold coil and is chilled below its dew point, causing water vapor to condense and drip off.
+  \item \textbf{Theoretical Lower Bound:} 
+    \begin{itemize}
+      \item In an ideal scenario of isothermal condensation at \SI{25}{\celsius}, the lower bound is near \(\sim0.68\,\text{kWh/kg}\).
+      \item Additional cooling (sensible) to reach dew-point temperatures typically adds \(\sim 0.1\)\,kWh/kg.
+    \end{itemize}
+  \item \textbf{Realized Energy Intensity:} 
+    \begin{itemize}
+      \item Typical coefficient of performance (COP) values for HVAC/refrigeration systems range from 2 to 4, implying \(\sim0.3\)--\(\sim0.8\,\text{kWh/kg}\).
+      \item Well-optimized systems in warm, humid climates can approach \(\sim0.3\)--\(\sim0.4\,\text{kWh/kg}\). Less efficient or smaller-scale units can exceed \(\sim1\,\text{kWh/kg}\).\cite{Costa2013,ASHRAE2017}
+    \end{itemize}
+\end{itemize}
+
+\paragraph{Thermoelectric (Peltier) Cooling.}
+\begin{itemize}
+  \item \textbf{Principle:} A Peltier (thermoelectric) module creates a cold surface below the air’s dew point. Water condenses on that surface and is collected.
+  \item \textbf{Theoretical Lower Bound:}
+    \begin{itemize}
+      \item Same condensation fundamentals: \(\sim0.68\,\text{kWh/kg}\) ideally.
+      \item But Peltier devices typically have lower COPs (often \(<1\)).
+    \end{itemize}
+  \item \textbf{Realized Energy Intensity:}
+    \begin{itemize}
+      \item \(\sim1\)--\(\sim2\,\text{kWh/kg}\), frequently higher in small portable devices.\cite{Min2015}
+      \item Used for niche or low-capacity applications due to simpler, solid-state operation.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Compression/Expansion Drying}
+\begin{itemize}
+  \item \textbf{Principle:} Air is compressed to raise its dew point, water is condensed out at higher pressure, and the dried air is subsequently expanded for use at lower pressure.
+  \item \textbf{Theoretical Lower Bound:}
+    \begin{itemize}
+      \item If compression/expansion were isothermal at ambient temperature, the fundamental limit again revolves around the latent heat.
+      \item Real compression is seldom isothermal; additional work and heat removal are required.
+    \end{itemize}
+  \item \textbf{Realized Energy Intensity:}
+    \begin{itemize}
+      \item Industrial compressed-air dryers often consume \(>\,1\,\text{kWh/kg}\).
+      \item If the user \emph{already needs} high-pressure air, the marginal energy for moisture removal can be lower.\cite{PerryHandbook}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Solid Desiccant (Adsorption) Systems}
+\begin{itemize}
+  \item \textbf{Principle:} A porous or solid desiccant (e.g., silica gel, zeolite) \emph{adsorbs} water vapor from air. The desiccant is then regenerated by heating it to release the adsorbed moisture.
+  \item \textbf{Theoretical Lower Bound:}
+    \begin{itemize}
+      \item Tied to the isosteric heat of adsorption, often comparable to water’s latent heat (\(\sim0.65\)--\(\sim0.75\,\text{kWh/kg}\)) plus some additional sensible heating of the desiccant.\cite{Henninger2013}
+    \end{itemize}
+  \item \textbf{Realized Energy Intensity:}
+    \begin{itemize}
+      \item Typically in the range of \(\sim1\)--\(\sim3\,\text{kWh/kg}\), depending on regeneration temperature, cycle design, and desiccant properties.
+      \item When waste heat or solar thermal is used, the \emph{electrical} energy requirement can drop significantly, though total thermal energy might still be high.\cite{ASHRAE2017,Henninger2013}
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Liquid Desiccant (Absorption) Systems}
+\begin{itemize}
+  \item \textbf{Principle:} A hygroscopic solution (e.g., lithium bromide, lithium chloride, or glycols) \emph{absorbs} water vapor. The concentrated solution is regenerated by heating it to drive off the absorbed water.
+  \item \textbf{Theoretical Lower Bound:}
+    \begin{itemize}
+      \item Similar magnitude to solid desiccants: \(\sim0.65\)--\(\sim0.75\,\text{kWh/kg}\) as a baseline for the sorption process.
+    \end{itemize}
+  \item \textbf{Realized Energy Intensity:}
+    \begin{itemize}
+      \item Often quoted \(\sim1\)--\(\sim3\,\text{kWh/kg}\) for complete absorption and regeneration cycles.\cite{ASHRAE2016,Eurotherm2020}
+      \item Continuous-flow operation can improve \emph{process} efficiency, but the thermal energy for regeneration remains substantial.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection{Membrane-Based Dehumidification}
+\begin{itemize}
+  \item \textbf{Principle:} A water-selective membrane separates water vapor from air, driven by a partial-pressure difference. Often a sweep gas or a vacuum is employed on the permeate side.
+  \item \textbf{Theoretical Lower Bound:}
+    \begin{itemize}
+      \item In principle, the separation enthalpy is near the same \(\sim0.68\,\text{kWh/kg}\).
+      \item Additional energy is required for vacuum pumping or forced sweep.
+    \end{itemize}
+  \item \textbf{Realized Energy Intensity:}
+    \begin{itemize}
+      \item Ranges widely from \(\sim1\) to \(\sim3\,\text{kWh/kg}\), depending on membrane efficiency and vacuum or blower requirements.\cite{Pollet2020}
+    \end{itemize}
+\end{itemize}
+
+\subsection{Other or Hybrid Methods}
+\begin{itemize}
+  \item \textbf{Thermoacoustic Dehumidification:} Uses a standing acoustic wave in a resonant tube to create cold regions. Efficiency is usually below that of high-end mechanical refrigeration.\cite{TAC2014}
+  \item \textbf{Electrochemical/Electrostatic Dehumidification:} Generally still at the research stage and often has higher energy consumption than mainstream methods.\cite{Wang2021}
+  \item \textbf{Chemical Reaction (Irreversible):} Some chemicals (e.g., quicklime, strong acids) can bind water irreversibly. This is impractical for large-scale continuous airflow because the reagent must be regularly replaced.\cite{PerryHandbook}
+\end{itemize}
+
+\subsection{Comparison of Theoretical and Realized Energy Intensities}
+Table~\ref{tab:energy-comparison} summarizes approximate energy intensities for each major dehumidification category. 
+
+\begin{table}[h]
+\centering
+\caption{Typical Energy Use for Removal of \SI{1}{kg} of Water from Air}
+\label{tab:energy-comparison}
+\begin{tabular}{lccp{4.5cm}}
+\hline
+\textbf{Method}                 & \textbf{Ideal/Lower Bound} & \textbf{Realized Range}     & \textbf{Notes} \\ \hline
+Theoretical minimum & \(\sim0.65\)--\(\sim0.70\,\text{kWh/kg}\) & --- & Based on latent heat + minimal irreversibility \\
+Mechanical refrigeration & \(\sim0.68\,\text{kWh/kg}\) & \(\sim0.3\)--\(\sim0.8\,\text{kWh/kg}\) & Dependent on COP (2--4) \\
+Thermoelectric cooling & \(\sim0.68\,\text{kWh/kg}\) & \(\sim1\)--\(>2\,\text{kWh/kg}\) & Often for small/niche devices \\
+Compression/expansion & \(\sim0.68\,\text{kWh/kg}\) & \(\sim1\)--\(\sim2\,\text{kWh/kg}\) & Higher if no \emph{other} need for compressed air \\
+Solid desiccant & \(\sim0.65\)--\(\sim0.75\,\text{kWh/kg}\) & \(\sim1\)--\(\sim3\,\text{kWh/kg}\) & Regeneration heat dominates \\
+Liquid desiccant & \(\sim0.65\)--\(\sim0.75\,\text{kWh/kg}\) & \(\sim1\)--\(\sim3\,\text{kWh/kg}\) & Dependent on solution and regeneration \\
+Membrane-based & \(\sim0.68\,\text{kWh/kg}\) & \(\sim1\)--\(\sim3\,\text{kWh/kg}\) & Extra energy for vacuum or sweep gas \\
+\hline
+\end{tabular}
+\end{table}
+
+\noindent\textbf{Key Observations:}
+\begin{enumerate}
+  \item All methods share a fundamental lower bound near the \(\sim0.65\)--\(\sim0.70\,\text{kWh/kg}\) region because the predominant energy cost arises from removing latent heat (and dealing with associated entropy changes).\cite{Bejan1997,VDIMinEnergy}
+  \item \emph{Realized} system performance typically exceeds these minima, often by at least a factor of 2, due to irreversibilities, practical temperature lifts, and real-world operating conditions.\cite{ASHRAE2017}
+  \item Desiccant-based processes can leverage \emph{low-grade/waste heat} to lower \emph{electrical} energy consumption, though total thermal energy use may remain significant.\cite{Henninger2013}
+  \item Refrigeration-based dehumidifiers are widespread for moderate relative humidity reductions and can be very efficient (below \(\sim0.5\,\text{kWh/kg}\)) under favorable conditions.\cite{ASHRAE2017,Costa2013}
+\end{enumerate}
+
+\subsection{Summary and Practical Considerations}
+In practice, \emph{cooling-based condensation} (particularly mechanical vapor-compression) is the dominant technology for building HVAC and industrial settings unless extremely low humidity levels are required. For achieving very low dew points (e.g., electronics or pharmaceutical manufacturing), \emph{desiccant or membrane systems} often come into play despite higher nominal energy costs. 
+
+Systems that exploit otherwise “free” energy sources (e.g., industrial waste heat, solar thermal) can lower primary \emph{electrical} demand, though the overall thermal requirement remains bound by the same fundamental thermodynamics. 
