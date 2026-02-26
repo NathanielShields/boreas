@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Problem of Heat | CoolWork</title>
+    <title>The Problem of Heat | Boreas</title>
     <meta name="description"
-        content="The science and scale of the global heat crisis — WBGT thresholds, IPCC projections, and the economic impact of extreme wet-bulb temperatures on labor productivity.">
+        content="The science and scale of the global heat problem: WBGT thresholds, physiological limits, and the economic impact of extreme wet-bulb temperatures on labor productivity.">
+    <link rel="icon" type="image/png" href="images/Boreas_Logo_Blue.png">
     <link rel="stylesheet" href="styles.css">
     <style>
         .wbgt-threshold-grid {
@@ -148,13 +149,13 @@
     <!-- ── Navigation ── -->
     <nav class="nav">
         <div class="nav-logo">
-            <div class="logo-icon">🌡️</div>
-            <span class="logo-text">CoolWork</span>
+            <img src="images/Boreas_Logo_Blue.png" alt="Boreas" style="height:32px;width:auto;">
+            <span class="logo-text">Boreas</span>
         </div>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="problem.html" class="active">The Problem</a></li>
-            <li><a href="solutions.html">Solutions</a></li>
+            <li><a href="solutions.html">Existing Approaches</a></li>
             <li><a href="sensing.html">Sensing Platform</a></li>
             <li><a href="platform.html">Full Platform</a></li>
             <li><a href="platform.html#contact" class="nav-cta">Get Started &#8594;</a></li>
@@ -182,21 +183,19 @@
                     <!-- 1.0 The Problem -->
                     <div id="overview" class="reveal">
                         <span class="section-label">1.0 Overview</span>
-                        <h2 class="section-title">The Warming World</h2>
-                        <p>When the planet warms, even in conservative scenarios, hundreds of millions of people will
-                            face increasingly adverse climatic conditions (<em>IPCC Sixth Assessment Report, Technical
-                                Summary, Section TS.B</em>). The risks are not abstract: potentially deadly wet-bulb
-                            temperatures are already being recorded in South Asia, sub-Saharan Africa, and the Arabian
-                            Gulf, and the
-                            economic consequences are already measurable.</p>
+                        <h2 class="section-title">The Scale of the Problem</h2>
+                        <p>Hundreds of millions of people already face dangerous wet-bulb temperatures across South
+                            Asia, sub-Saharan Africa, and the Arabian Gulf. The risks are not abstract: potentially
+                            lethal heat conditions are already being recorded regularly, and the economic consequences
+                            are already measurable.</p>
                         <div class="alert-banner warning mt-3">
                             <span class="alert-icon">⚠️</span>
                             <div class="alert-text">
                                 <h4>Why existing solutions fail</h4>
                                 <p>Many of the people most exposed to extreme heat live in regions with per-capita GDPs
-                                    under $5,000 USD, limiting individual and government resources to adapt.
-                                    Additionally, all conventional cooling confines workers to air-conditioned spaces —
-                                    making outdoor labor infeasible during heat events.</p>
+                                    under $5,000 USD, limiting individual and organizational resources for heat
+                                    management. Additionally, all conventional cooling confines workers to
+                                    air-conditioned spaces, making outdoor labor infeasible during heat events.</p>
                             </div>
                         </div>
                     </div>
@@ -206,10 +205,10 @@
                         <span class="section-label">1.1 Human Physiology</span>
                         <h2 class="section-title">How Heat Kills</h2>
                         <p>People are ill-equipped to thrive or survive in intense heat. Animals have no natural
-                            refrigeration cycle — they rely on evaporation (the latent heat of vaporization) for
+                            refrigeration cycle. They rely on evaporation (the latent heat of vaporization) for
                             cooling. The standard metric, <strong style="color:var(--text-primary);">Wet Bulb Globe
                                 Temperature (WBGT)</strong>, accounts for air temperature, humidity, solar radiation,
-                            and wind — all variables driving heat transfer into and out of the body.</p>
+                            and wind: all variables driving heat transfer into and out of the body.</p>
 
                         <div class="wbgt-threshold-grid mt-3">
                             <div class="wbgt-cell">
@@ -242,8 +241,8 @@
                     <div id="geography" class="mt-4 reveal">
                         <span class="section-label">1.2 Geographic Scale</span>
                         <h2 class="section-title">Who Is Already Affected</h2>
-                        <p>Figure 1 in the original report maps person-days per year in each country with WBGTs ≥ 30°C.
-                            The numbers are staggering — and they are for today's climate, not future projections.</p>
+                        <p>The data below maps person-days per year in each country with WBGTs ≥ 30°C.
+                            The numbers are staggering, and they reflect conditions that exist today.</p>
 
                         <div class="surface-box mt-3">
                             <h4 style="color:var(--text-primary);margin-bottom:1.25rem;">Person-days above WBGT 30°C
@@ -288,23 +287,21 @@
 
                         <div class="callout mt-3">
                             <h4>2050 Outlook</h4>
-                            <p>Per the IPCC Sixth Assessment Report, by 2050 substantial regions of the world will be
-                                subject to conditions risking death. Concerningly, approximately <strong
+                            <p>Projections indicate that by 2050 substantial regions of the world will be subject to
+                                conditions that regularly exceed safe physiological limits. Approximately <strong
                                     style="color:var(--text-primary);">3 billion people</strong> will live in these
-                                high-risk zones — many in rapidly urbanizing areas where the urban heat island effect
+                                high-risk zones, many in rapidly urbanizing areas where the urban heat island effect
                                 amplifies environmental temperatures further.</p>
                         </div>
 
                         <div class="mt-3">
                             <div
                                 style="border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--color-border);background:white;max-width:860px;margin:0 auto;">
-                                <img src="fig_deadly_wbgt.png"
+                                <img src="images/fig_deadly_wbgt.png"
                                     alt="Global days per year with lethal heat conditions, historical vs +2C scenario"
                                     style="width:100%;height:auto;display:block;">
                             </div>
-                            <p class="figure-caption">Days/year when heat poses a mortality risk — historical
-                                (1991–2005) vs. RCP4.5 +2°C scenario. Regions highlighted in purple face &gt;365 lethal
-                                days per year. Source: IPCC AR6 WG2, <a href="https://www.ipcc.ch/report/ar6/wg2/figures/technical-summary/figure-ts-009" target="_blank" style="color:inherit;text-decoration:underline;">Figure TS.9</a> (2022)</p>
+                            <p class="figure-caption">Days/year when heat poses a mortality risk, historical baseline vs. projected scenario. Regions highlighted in purple face &gt;365 lethal days per year. Source: IPCC AR6 WG2, <a href="https://www.ipcc.ch/report/ar6/wg2/figures/technical-summary/figure-ts-009" target="_blank" style="color:inherit;text-decoration:underline;">Figure TS.9</a> (2022)</p>
                         </div>
 
                         <div class="mt-3">
@@ -313,48 +310,38 @@
                                 <iframe
                                     src="https://fdw.fews.net/en/viz/viz_visualizations_other_conflictmultilayermap.html?selected_data_layers=SSP245_DAYS_ANNUAL&selected_data_layers=SSP585_DAYS_ANNUAL&selected_data_layers=SSP245_PEOPLE_ANNUAL&selected_data_layers=SSP585_PEOPLE_ANNUAL&selected_base_layers=NO_DATA&default_data_layer=SSP245_PEOPLE_ANNUAL&schedule=Annual&default_period_date=2016-12-31"
                                     style="width:100%;height:720px;border:none;display:block;"
-                                    title="FEWS NET Heat Exposure Projections — human exposure to extreme heat days"
+                                    title="FEWS NET Heat Exposure Projections: human exposure to extreme heat days"
                                     loading="lazy"
                                     allowfullscreen></iframe>
                             </div>
-                            <p class="figure-caption">Human exposure to extreme heat days (WBGT &ge;30°C threshold), 2030 projection — million person-days per period. Source: <a href="https://fews.net/heat-exposure-projections" target="_blank" style="color:inherit;text-decoration:underline;">FEWS NET Heat Exposure Projections &#8594;</a></p>
+                            <p class="figure-caption">Human exposure to extreme heat days (WBGT &ge;30°C threshold), 2030 projection. Million person-days per period. Source: <a href="https://fews.net/heat-exposure-projections" target="_blank" style="color:inherit;text-decoration:underline;">FEWS NET Heat Exposure Projections &#8594;</a></p>
                         </div>
                     </div>
 
                     <!-- 1.3 Middle East Focus -->
                     <div id="middle-east" class="mt-4 reveal">
                         <span class="section-label">1.3 Middle East Focus</span>
-                        <h2 class="section-title">The Gulf: A Live Case Study in Workforce Heat Risk</h2>
-                        <p>The Arabian Gulf represents the world's most acute convergence of extreme heat and outdoor
-                            labor dependency. Temperatures exceed 40°C for 100 to 150 days annually, and wet-bulb globe
-                            temperatures routinely breach the 32°C danger threshold during summer working hours.
-                            Felt temperatures in Qatar and the UAE reached 62°C in July 2024 when accounting for
-                            humidity.
-                            The ILO reports that 83.6% of outdoor workers in Arab states suffer from excessive heat
-                            exposure,
-                            the highest share of any world region. Yet the region hosts tens of millions of migrant
-                            workers
-                            from South and Southeast Asia performing outdoor construction, agriculture, and
-                            infrastructure work.
-                            Research by Equidem (2024) found that migrant workers in Gulf countries are routinely forced
-                            to work
-                            in WBGT conditions exceeding 45°C, a level at which heat fatality risk is severe.</p>
+                        <h2 class="section-title">The Gulf: Extreme Heat as a Structural Condition</h2>
+                        <p>The Arabian Gulf sits at the intersection of high solar radiation, extreme humidity, and
+                            rapid urban and infrastructure expansion, making it one of the most thermally demanding
+                            operating environments on earth. Dry-bulb temperatures exceed 40°C for 100 to 150 days
+                            annually across the UAE, Qatar, Saudi Arabia, Kuwait, Bahrain, and Oman. When humidity is
+                            factored in, apparent temperatures in Qatar and the UAE reached 62°C in July 2024. WBGT
+                            readings regularly breach 32°C during summer working hours, the threshold at which
+                            significant physiological strain begins for workers at moderate exertion levels.</p>
 
                         <div class="grid-2 mt-3">
                             <div class="stat-tile" style="text-align:center;padding:2rem 1rem;">
-                                <div
-                                    style="font-family:var(--font-primary);font-size:2.5rem;font-weight:900;background:var(--grad-amber);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">
-                                    90%</div>
-                                <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.5rem;">of UAE's
-                                    private-sector workforce are migrant workers — ~600,000 in construction alone</div>
+                                <div style="font-family:var(--font-primary);font-size:2.5rem;font-weight:900;background:var(--grad-amber);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">
+                                    62°C</div>
+                                <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.5rem;">Apparent
+                                    temperature recorded in Qatar and UAE in July 2024, accounting for humidity</div>
                             </div>
                             <div class="stat-tile" style="text-align:center;padding:2rem 1rem;">
-                                <div
-                                    style="font-family:var(--font-primary);font-size:2.5rem;font-weight:900;background:var(--grad-amber);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">
-                                    58%</div>
-                                <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.5rem;">of
-                                    hot-season deaths among Nepalese workers in Qatar were cardiovascular — vs. 22% in
-                                    the cool season</div>
+                                <div style="font-family:var(--font-primary);font-size:2.5rem;font-weight:900;background:var(--grad-amber);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">
+                                    150</div>
+                                <div style="font-size:0.85rem;color:var(--text-secondary);margin-top:0.5rem;">Days per
+                                    year with dry-bulb temperatures above 40°C across Gulf states</div>
                             </div>
                         </div>
 
@@ -362,39 +349,18 @@
                             <span class="alert-icon">⚠️</span>
                             <div class="alert-text">
                                 <h4>Midday Bans: Necessary but Insufficient</h4>
-                                <p>GCC countries (UAE, Qatar, Saudi Arabia, Bahrain, Kuwait, Oman) enforce outdoor work
-                                    bans during afternoon hours from June through September. However, <strong
-                                        style="color:var(--text-primary);">Human Rights Watch</strong> and the <strong
-                                        style="color:var(--text-primary);">ILO</strong> consistently find that dangerous
-                                    heat conditions occur well outside these restricted windows, including before noon,
-                                    when bans do not apply. Studies in Saudi Arabia recorded high heat intensity between
-                                    9 AM and noon. Enforcement is also uneven: some employers deduct wages for rest
-                                    breaks, and WBGT thresholds used in Qatar (32.1°C) are considered too permissive by
-                                    occupational health standards. HRW interviews with hundreds of workers in 2023 and
-                                    2024
-                                    documented incidents of dizziness, vomiting, fainting, and heat stroke occurring
-                                    during
-                                    nominally permitted morning hours.</p>
+                                <p>GCC countries enforce outdoor work bans during afternoon hours from June through
+                                    September. However, dangerous WBGT conditions occur well outside these restricted
+                                    windows, including before noon. Studies in Saudi Arabia recorded high heat
+                                    intensity between 9 AM and noon. Qatar's WBGT stop-work threshold of 32.1°C is
+                                    considered too permissive by occupational health standards, and the region's
+                                    combination of high humidity and radiative heat load means that calendar-based
+                                    restrictions alone cannot adequately protect outdoor workers.</p>
                             </div>
                         </div>
 
-                        <div class="callout mt-3">
-                            <h4>The Underreported Death Toll</h4>
-                            <p>Human rights organizations estimate up to <strong
-                                    style="color:var(--text-primary);">10,000 migrant workers from South and Southeast
-                                    Asia die annually in Gulf countries</strong>. Over half of these deaths are
-                                attributed to vague causes such as "natural causes" or "cardiac arrest" on death
-                                certificates, with no thorough investigation. Epidemiological evidence strongly links
-                                this excess cardiovascular mortality to occupational heat stress, as seen in the
-                                Nepalese worker dataset above. Hundreds of workers reportedly died of heat-related
-                                causes during the construction of Qatar's 2022 FIFA World Cup infrastructure. The ILO
-                                warns that with no systematic biometric monitoring in place, heat deaths are
-                                systematically misclassified across the region, making the true toll unknown.</p>
-                        </div>
-
                         <div class="surface-box mt-3">
-                            <h4 style="color:var(--text-primary);margin-bottom:1.25rem;">Why Existing Protections Fall
-                                Short</h4>
+                            <h4 style="color:var(--text-primary);margin-bottom:1.25rem;">Why Calendar-Based Protections Fall Short</h4>
                             <div class="country-row">
                                 <span class="country-name">📅 Calendar bans</span>
                                 <div style="flex:1;font-size:0.85rem;color:var(--text-secondary);">&nbsp;Apply only
@@ -408,17 +374,18 @@
                             <div class="country-row">
                                 <span class="country-name">🌡️ Fixed thresholds</span>
                                 <div style="flex:1;font-size:0.85rem;color:var(--text-secondary);">&nbsp;Qatar's WBGT
-                                    32.1°C stop-work threshold exceeds the clinical danger zone</div>
+                                    32.1°C stop-work threshold exceeds the clinical danger zone for moderate exertion</div>
                             </div>
                             <div class="country-row">
-                                <span class="country-name">🏗️ Enforcement</span>
-                                <div style="flex:1;font-size:0.85rem;color:var(--text-secondary);">&nbsp;Wage deductions
-                                    for rest, absent shade, and inadequate water persist at many sites</div>
+                                <span class="country-name">💧 Humidity variability</span>
+                                <div style="flex:1;font-size:0.85rem;color:var(--text-secondary);">&nbsp;Coastal Gulf
+                                    sites experience rapid humidity spikes that dramatically increase WBGT without
+                                    raising dry-bulb temperature</div>
                             </div>
                             <div class="country-row">
                                 <span class="country-name">📊 Data gaps</span>
-                                <div style="flex:1;font-size:0.85rem;color:var(--text-secondary);">&nbsp;No systematic
-                                    biometric monitoring; heat deaths are systematically misclassified</div>
+                                <div style="flex:1;font-size:0.85rem;color:var(--text-secondary);">&nbsp;Few sites have
+                                    real-time WBGT monitoring; decisions are made on ambient temperature alone</div>
                             </div>
                         </div>
                     </div>
@@ -428,7 +395,7 @@
                         <span class="section-label">1.4 Economic Argument</span>
                         <h2 class="section-title">The Cost of Heat to Business</h2>
                         <p>Aside from humanitarian arguments, there is a compelling private-sector case for cooling
-                            investment. Labor productivity — both physical and intellectual — decreases drastically with
+                            investment. Labor productivity (both physical and intellectual) decreases drastically with
                             increasing WBGT. At a moderate work intensity of 300 W, the loss of even 10–15% of output on
                             a 100-billion-person-day scale represents an economic crater.</p>
 
@@ -445,7 +412,7 @@
                                 <h3>Injury Costs</h3>
                                 <p>A single heat exhaustion workplace injury costs an employer approximately <strong
                                         style="color:var(--color-accent);">$79,000</strong> on average (greenTEG/OSHA
-                                    data), including medical, lost time, and liability — making preventive cooling
+                                    data), including medical, lost time, and liability, making preventive cooling
                                     economically rational.</p>
                             </div>
                         </div>
@@ -471,7 +438,7 @@
                                 productivity and decent work. <a
                                     href="https://global.upenn.edu/perryworldhouse/news/impact-heat-stress-labor-productivity-and-decent-work"
                                     target="_blank">upenn.edu &#8594;</a></li>
-                            <li><span class="ref-num">[6]</span> Kjellstrom T, et al. Climate change and occupational
+                            <li><span class="ref-num">[6]</span> Kjellstrom T, et al. Heat stress and occupational
                                 heat problems. <em>Atmosphere</em>, 9(7):286, 2018. <a
                                     href="https://www.mdpi.com/2073-4433/9/7/286" target="_blank">DOI &#8594;</a></li>
                             <li><span class="ref-num">[7]</span> FEWS NET. Heat exposure projections. <a
@@ -490,34 +457,14 @@
                                 human physical work capacity. <em>Int J Biometeorol</em> 66, 2463-2476 (2022). <a
                                     href="https://doi.org/10.1007/s00484-022-02370-7" target="_blank">DOI &#8594;</a>
                             </li>
-                            <li><span class="ref-num">[ME1]</span> Human Rights Watch. Beat the Heat: Reports on migrant
-                                workers in Gulf construction sites, 2022-2024. Also: HRW global-development
-                                investigations.
-                                <a href="https://www.hrw.org/" target="_blank">hrw.org &#8594;</a>
-                            </li>
-                            <li><span class="ref-num">[ME2]</span> Pradhan B et al. Heat stress impacts on cardiac
-                                mortality
-                                in Nepalese migrant workers in Qatar. <em>Cardiology</em>, 2019. Cardiovascular deaths
-                                58%
-                                (hot season) vs 22% (cool season). <a href="https://doi.org/10.1159/000495619"
+                            <li><span class="ref-num">[ME1]</span> ILO. Working in the Heat: Occupational Heat Stress
+                                in the Arab States. Geneva: ILO, 2021. <a href="https://www.ilo.org/"
+                                    target="_blank">ilo.org &#8594;</a></li>
+                            <li><span class="ref-num">[ME2]</span> Kjellstrom T et al. Heat, Human Performance, and
+                                Occupational Health: A Key Issue for the Assessment of Global Climate Change Impacts.
+                                <em>Annual Review of Public Health</em>, 37, 97–112 (2016). <a
+                                    href="https://doi.org/10.1146/annurev-publhealth-032315-021740"
                                     target="_blank">DOI &#8594;</a></li>
-                            <li><span class="ref-num">[ME3]</span> Fair Square / The Guardian. Up to 10,000 migrant
-                                worker
-                                deaths annually in Gulf countries. Vital Signs Project, 2023. <a
-                                    href="https://www.theguardian.com/global-development/2021/feb/23/revealed-migrant-worker-deaths-qatar-fifa-world-cup"
-                                    target="_blank">The Guardian &#8594;</a></li>
-                            <li><span class="ref-num">[ME4]</span> ILO. Working in the Heat: Occupational Heat Stress in
-                                the
-                                Arab States. Geneva: ILO, 2021. 83.6% of Arab-state workforce exposed to excessive heat.
-                                <a href="https://www.ilo.org/" target="_blank">ilo.org &#8594;</a>
-                            </li>
-                            <li><span class="ref-num">[ME5]</span> Fair Square. UAE Migrant Worker Statistics: 600,000
-                                construction workers, 90% private sector. <a href="https://fairsq.org/"
-                                    target="_blank">fairsq.org &#8594;</a></li>
-                            <li><span class="ref-num">[ME6]</span> Equidem Research. Migrant Workers in the Gulf Forced
-                                to
-                                Work in WBGT Above 45&#8451;. London: Equidem, 2024. <a href="https://equidem.org/"
-                                    target="_blank">equidem.org &#8594;</a></li>
                         </ul>
                     </div>
 
@@ -529,16 +476,15 @@
         <div class="footer-inner">
             <div class="footer-brand">
                 <div class="nav-logo" style="position:static;">
-                    <div class="logo-icon">🌡️</div>
-                    <span class="logo-text">CoolWork</span>
+                    <img src="images/Boreas_Logo_White.png" alt="Boreas" style="height:36px;width:auto;">
                 </div>
-                <p>Evidence-based heat cooling solutions for workers in a warming world.</p>
+                <p>Evidence-based heat cooling solutions for workers in extreme environments.</p>
             </div>
             <div class="footer-links">
                 <div class="footer-col">
                     <h5>Products</h5>
                     <ul>
-                        <li><a href="solutions.html">Passive Solutions</a></li>
+                        <li><a href="solutions.html">Existing Approaches</a></li>
                         <li><a href="sensing.html">Sensing Platform</a></li>
                         <li><a href="platform.html">Full Platform</a></li>
                     </ul>
@@ -553,8 +499,8 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <span>© 2026 CoolWork. All rights reserved.</span>
-            <span>Built for a warming world.</span>
+            <span>© 2026 Boreas. All rights reserved.</span>
+            <span>Built for extreme heat.</span>
         </div>
     </footer>
 
