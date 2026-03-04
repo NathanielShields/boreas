@@ -300,10 +300,27 @@
 
       <div>
         <span class="section-label">Labor Productivity vs. Temperature</span>
-        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Select an activity below to see how heat erodes work capacity — and how much output is lost per shift.</p>
+        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Select an activity and adjust the temperature slider to see how heat erodes work capacity at different WBGT levels.</p>
 
         <!-- ── Interactive Heat-Productivity Chart ── -->
         <div id="heat-chart-wrap" style="background:white;border:1px solid var(--color-border);border-radius:var(--radius-md);padding:1.25rem 1.5rem 1rem;font-family:var(--font-body);">
+
+          <!-- WBGT Slider -->
+          <div id="wbgt-slider-wrap" style="margin-bottom:1.25rem;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+              <span style="font-size:0.82rem;color:#475569;font-weight:600;">Adjust WBGT Temperature</span>
+              <span id="wbgt-value" style="font-size:1.1rem;font-weight:800;color:#f97316;"></span>
+            </div>
+            <input type="range" id="wbgt-slider" min="20" max="37" step="0.5" value="30" 
+              style="width:100%;height:8px;border-radius:4px;background:linear-gradient(to right,#22c55e 0%,#fbbf24 40%,#f97316 70%,#ef4444 100%);cursor:pointer;-webkit-appearance:none;appearance:none;">
+            <div style="display:flex;justify-content:space-between;font-size:0.7rem;color:#94a3b8;margin-top:0.25rem;">
+              <span>20°C (Low risk)</span>
+              <span>25°C</span>
+              <span>30°C</span>
+              <span>33°C</span>
+              <span>37°C (Extreme)</span>
+            </div>
+          </div>
 
           <!-- Activity selector -->
           <div id="activity-btns" style="display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1.1rem;"></div>
@@ -548,7 +565,11 @@
       return d;
     }
 
-    function renderChart(activity) {
+    // Current state
+    let currentActivity = null;
+    let currentWBGT = 30;
+
+    function renderChart(activity, wbgt) {
       const svg = document.getElementById('heat-svg');
       svg.innerHTML = '';
       const col = CAT_COLORS[activity.cat];
@@ -579,11 +600,11 @@
       });
 
       // ── X axis ticks ──
-      [15, 20, 25, 28, 30, 32, 33, 34, 35, 37].forEach(wbgt => {
-        const x = xScale(wbgt);
+      [15, 20, 25, 28, 30, 32, 33, 34, 35, 37].forEach(w => {
+        const x = xScale(w);
         svg.appendChild(svgEl('line', { x1: x, y1: PAD.top + CH, x2: x, y2: PAD.top + CH + 4, stroke: '#94a3b8', 'stroke-width': '0.8' }));
         const t = svgEl('text', { x, y: PAD.top + CH + 13, 'text-anchor': 'middle', fill: '#64748b', 'font-size': '9', 'font-family': 'sans-serif' });
-        t.textContent = wbgt + '°';
+        t.textContent = w + '°';
         svg.appendChild(t);
       });
 
@@ -604,9 +625,9 @@
       // ── Curve line ──
       svg.appendChild(svgEl('path', { d: buildCurvePath(activity.w), fill: 'none', stroke: col.fill, 'stroke-width': '2.2', 'stroke-linecap': 'round' }));
 
-      // ── Operating WBGT marker ──
-      const opX = xScale(activity.wbgt);
-      const opCap = adjustedCapacity(activity.wbgt, activity.w);
+      // ── Slider WBGT marker (from slider) ──
+      const opX = xScale(wbgt);
+      const opCap = adjustedCapacity(wbgt, activity.w);
       const opY = yScale(opCap);
 
       // Vertical dashed line
@@ -614,7 +635,7 @@
       // Horizontal dashed line
       svg.appendChild(svgEl('line', { x1: PAD.left, y1: opY, x2: opX, y2: opY, stroke: col.fill, 'stroke-width': '1.2', 'stroke-dasharray': '4,3', opacity: '0.7' }));
       // Dot
-      svg.appendChild(svgEl('circle', { cx: opX, cy: opY, r: '5', fill: col.fill, stroke: 'white', 'stroke-width': '2' }));
+      svg.appendChild(svgEl('circle', { cx: opX, cy: opY, r: '6', fill: col.fill, stroke: 'white', 'stroke-width': '2' }));
 
       // Label at dot
       const labelX = opX + 8, labelY = opY - 8;
@@ -634,9 +655,9 @@
       svg.appendChild(svgEl('rect', { x: PAD.left, y: PAD.top, width: CW, height: CH, fill: 'none', stroke: '#e2e8f0', 'stroke-width': '1' }));
     }
 
-    function renderInfo(activity) {
+    function renderInfo(activity, wbgt) {
       const col = CAT_COLORS[activity.cat];
-      const opCap = adjustedCapacity(activity.wbgt, activity.w);
+      const opCap = adjustedCapacity(wbgt, activity.w);
       const lostPct = Math.round((1 - opCap) * 100);
       const lostMins = Math.round((1 - opCap) * 480);
 
@@ -644,7 +665,7 @@
       info.innerHTML = `
         <span><strong style="color:#1e293b;">Activity:</strong> ${activity.desc}</span>
         <span><strong style="color:#1e293b;">Metabolic rate:</strong> ~${activity.w} W</span>
-        <span><strong style="color:#1e293b;">Typical operating WBGT:</strong> ${activity.wbgt}°C</span>
+        <span><strong style="color:#1e293b;">Selected WBGT:</strong> ${wbgt}°C</span>
       `;
 
       const callout = document.getElementById('loss-callout');
@@ -653,13 +674,24 @@
       callout.innerHTML = `
         <span style="font-size:1.4rem;font-weight:900;color:${col.fill};min-width:52px;">${lostPct}%</span>
         <div>
-          <strong style="color:#1e293b;display:block;margin-bottom:0.15rem;">Productivity lost at WBGT ${activity.wbgt}°C</strong>
+          <strong style="color:#1e293b;display:block;margin-bottom:0.15rem;">Productivity lost at WBGT ${wbgt}°C</strong>
           <span style="color:#475569;">≈ ${lostMins} minutes of effective work lost per 8-hour shift for <em>${activity.label.toLowerCase()}</em> workers.</span>
         </div>
       `;
     }
 
+    function updateSliderDisplay(wbgt) {
+      const valueEl = document.getElementById('wbgt-value');
+      let riskLabel = 'Low risk';
+      let riskColor = '#22c55e';
+      if (wbgt >= 33) { riskLabel = 'Extreme'; riskColor = '#ef4444'; }
+      else if (wbgt >= 30) { riskLabel = 'High risk'; riskColor = '#f97316'; }
+      else if (wbgt >= 25) { riskLabel = 'Caution'; riskColor = '#eab308'; }
+      valueEl.innerHTML = `<span style="color:${riskColor}">${wbgt}°C</span> <span style="font-size:0.75rem;font-weight:500;color:#64748b;">(${riskLabel})</span>`;
+    }
+
     function setActive(activity) {
+      currentActivity = activity;
       document.querySelectorAll('.act-btn').forEach(b => {
         const isActive = b.dataset.id === activity.id;
         const col = CAT_COLORS[ACTIVITIES.find(a => a.id === b.dataset.id).cat];
@@ -667,8 +699,17 @@
         b.style.color = isActive ? 'white' : '#475569';
         b.style.borderColor = isActive ? col.fill : '#e2e8f0';
       });
-      renderChart(activity);
-      renderInfo(activity);
+      renderChart(activity, currentWBGT);
+      renderInfo(activity, currentWBGT);
+    }
+
+    function onSliderChange(wbgt) {
+      currentWBGT = wbgt;
+      updateSliderDisplay(wbgt);
+      if (currentActivity) {
+        renderChart(currentActivity, wbgt);
+        renderInfo(currentActivity, wbgt);
+      }
     }
 
     // ── Build buttons ──────────────────────────────────────────────────────
@@ -719,7 +760,40 @@
     });
     btnWrap.parentNode.insertBefore(legend, btnWrap);
 
-    // ── Init with first activity ──
+    // ── Setup slider ──
+    const slider = document.getElementById('wbgt-slider');
+    slider.addEventListener('input', (e) => {
+      onSliderChange(parseFloat(e.target.value));
+    });
+
+    // Style the slider thumb
+    const sliderStyle = document.createElement('style');
+    sliderStyle.textContent = `
+      #wbgt-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: white;
+        border: 3px solid #f97316;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      }
+      #wbgt-slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: white;
+        border: 3px solid #f97316;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      }
+    `;
+    document.head.appendChild(sliderStyle);
+
+    // ── Init ──
+    updateSliderDisplay(currentWBGT);
     setActive(ACTIVITIES[0]);
   })();
   </script>
